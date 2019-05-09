@@ -4,16 +4,17 @@ import javax.swing.JLabel;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class Combostion {
+public class Evo {
 
 	JFrame frame = new JFrame();
-	static JPanel panel = new JPanel();
+	static GamePanel panel = new GamePanel();
 
 	static final int width = 950;
 	static final int height = 690;
 
 	void setup() {
 		frame.add(panel);
+		frame.addKeyListener(panel);
 		frame.setVisible(true);
 		frame.getContentPane().setPreferredSize(new Dimension(width, height));
 		frame.pack();
@@ -22,8 +23,10 @@ public class Combostion {
 
 	public static void main(String[] arg) {
 
-	Combostion main = new Combostion();
-	main.setup();
-		
+		Evo main = new Evo();
+		main.setup();
+
+		panel.start();
+
 	}
 }
