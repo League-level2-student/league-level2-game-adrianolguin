@@ -17,7 +17,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	GamePanel() {
 		timer = new Timer(1000 / 60, this);
 		player = new Player(Evo.width / 2, Evo.height / 2, 10, 10, 5);
-		test = new Room(10, 10);
+		test = new Room(100, 100, 10, 200);
+		test.initialize();
 	}
 
 	void start() {
@@ -26,7 +27,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		checkCollisions();
+		checkCollision();
 		player.update();
 
 		repaint();
@@ -60,14 +61,19 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	}
 
-	void checkCollisions() {
-		
-		//player.collisionBox.
-		
+	void checkCollision() {
 		if (player.collisionBox.intersects(test.collisionBox1)) {
-			player.canMove = false;
+			player.x += player.speed;
 		}
-
+		if (player.collisionBox.intersects(test.collisionBox2)) {
+			player.touchingWU = true;
+		}
+		if (player.collisionBox.intersects(test.collisionBox3)) {
+			player.x -= player.speed;
+		}
+		if (player.collisionBox.intersects(test.collisionBox4)) {
+			player.y -= player.speed;
+		}
 	}
 
 }
