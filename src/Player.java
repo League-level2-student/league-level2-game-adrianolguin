@@ -8,11 +8,6 @@ public class Player extends GameObject {
 	boolean DOWN;
 	boolean LEFT;
 	boolean RIGHT;
-	
-	boolean touchingWU;
-	boolean touchingWD;
-	boolean touchingWR;
-	boolean touchingWL;
 
 	Player(int x, int y, int width, int height, int speed) {
 		super(x, y, width, height, speed);
@@ -44,15 +39,6 @@ public class Player extends GameObject {
 
 	void manageDir(int keyCode, boolean change) {
 
-		boolean done = false;
-		
-		if(touchingWU) {
-		UP = false;
-		done = true;
-		}
-		
-		
-		if(!done) {
 		if (keyCode == KeyEvent.VK_UP) {
 			UP = change;
 		}
@@ -64,7 +50,6 @@ public class Player extends GameObject {
 		}
 		if (keyCode == KeyEvent.VK_RIGHT) {
 			RIGHT = change;
-		}
 		}
 
 	}
