@@ -26,9 +26,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
-		manager.update();
+	
 		
+		
+		manager.update();
+
 		repaint();
 	}
 
@@ -43,6 +45,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public void keyPressed(KeyEvent e) {
 		int keyCode = e.getKeyCode();
 
+		System.out.println(keyCode);
 		player.manageDir(keyCode, true);
 
 	}
