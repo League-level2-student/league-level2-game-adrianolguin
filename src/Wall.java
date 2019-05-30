@@ -44,49 +44,6 @@ public class Wall {
 
 	void checkCollisions(Player player) {
 
-		if (dir == Vertical) {
-			if (player.x + player.width == x && (player.y <= y + height && player.y >= y)) {
-				// player.manageDir(KeyEvent.VK_RIGHT, false);
-				player.x -= player.speed;
-
-			} else if (player.x == x + width && (player.y <= y + height && player.y >= y)) {
-				// player.manageDir(KeyEvent.VK_LEFT, false);
-				player.x += player.speed;
-
-			}
-
-			if (player.y == y - width && (player.x + player.width >= x && player.x <= x)) {
-				// player.manageDir(KeyEvent.VK_DOWN, false);
-				player.y -= player.speed;
-
-			} else if (player.y == y + height && (player.x + player.width >= x && player.x <= x)) {
-				// player.manageDir(KeyEvent.VK_UP, false);\
-				player.y += player.speed;
-
-			}
-		} else if (dir == Horizontal) {
-
-			if (player.y == y - width && (player.x <= x + height && player.x >= x)) {
-				// player.manageDir(KeyEvent.VK_DOWN, false);
-				player.y -= player.speed;
-
-			} else if (player.y == y + width && (player.x <= x + height && player.x >= x)) {
-				// player.manageDir(KeyEvent.VK_UP, false);
-				player.y += player.speed;
-
-			}
-
-			if (player.x == x - width && (player.y + player.width >= y && player.y <= y)) {
-				// player.manageDir(KeyEvent.VK_RIGHT, false);
-				player.x -= player.speed;
-
-			} else if (player.x == x + height && (player.y + player.width >= y && player.y <= y)) {
-				// player.manageDir(KeyEvent.VK_LEFT, false);
-				player.x += player.speed;
-
-			}
-
-		}
 
 	}
 

@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 
 public class Player extends GameObject {
@@ -9,25 +10,31 @@ public class Player extends GameObject {
 	boolean LEFT;
 	boolean RIGHT;
 
+	Rectangle collisionBox;
+
 	Player(int x, int y, int width, int height, int speed) {
 		super(x, y, width, height, speed);
 		// TODO Auto-generated constructor stub
+		
+		collisionBox = new Rectangle(x, y, width, height);
 	}
 
 	void update() {
+		
 		super.update();
+		
 		if (canMove) {
 			if (UP) {
-				y -= speed;
+				collisionBox.y -= speed;
 			}
 			if (DOWN) {
-				y += speed;
+				collisionBox.y += speed;
 			}
 			if (LEFT) {
-				x -= speed;
+				collisionBox.x -= speed;
 			}
 			if (RIGHT) {
-				x += speed;
+				collisionBox.x += speed;
 			}
 		}
 	}
@@ -53,5 +60,11 @@ public class Player extends GameObject {
 		}
 
 	}
-
+	
+	void checkCollisions(Rectangle r) {
+		
+		
+		
+	}
+	
 }

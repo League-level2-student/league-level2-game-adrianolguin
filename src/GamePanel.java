@@ -30,8 +30,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		
 		
 		manager.update();
-
 		repaint();
+		
 	}
 
 	public void paintComponent(Graphics g) {
@@ -45,7 +45,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public void keyPressed(KeyEvent e) {
 		int keyCode = e.getKeyCode();
 
-		System.out.println(keyCode);
+		//System.out.println(keyCode);
+		
 		player.manageDir(keyCode, true);
 
 	}
