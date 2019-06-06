@@ -1,5 +1,7 @@
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 public class ObjectManager {
 
@@ -12,17 +14,21 @@ public class ObjectManager {
 
 	Wall wall;
 
+	ArrayList<Rectangle> collisionBoxes;
+
 	ObjectManager(Player player) {
 		this.player = player;
 		this.r = new Room(250, 250, player.width, 240, player);
 		this.wall = new Wall(250, 250, player.width * 2, 240, Vertical);
+		collisionBoxes = new ArrayList<Rectangle>();
 	}
 
 	void draw(Graphics g) {
 
 		// r.draw(g);
-		player.draw(g);
+	
 		wall.draw(g);
+		player.draw(g);
 	}
 
 	void update() {
@@ -32,9 +38,11 @@ public class ObjectManager {
 
 	}
 
+
 	void checkCollisions() {
-		wall.checkCollisions(player);
-		// r.checkCollisions();
+		player.addCollisionBox(wall.collisionBox);
+		
+
 	}
 
 }
