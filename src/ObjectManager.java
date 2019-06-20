@@ -10,38 +10,44 @@ public class ObjectManager {
 
 	Player player;
 
-	Room r;
+	Enemy enemy;
+
+	Room room;
 
 	Wall wall;
 
-	ArrayList<Rectangle> collisionBoxes;
-
 	ObjectManager(Player player) {
 		this.player = player;
-		this.r = new Room(250, 250, player.width, 240, player);
-		this.wall = new Wall(250, 250, player.width * 2, 240, Vertical);
-		collisionBoxes = new ArrayList<Rectangle>();
+		enemy = new Enemy(100, 100, 10, 10, 5);
+		room = new Room(100, 100, 10, 100);
+		wall = new Wall(200, 200, 10, 100, Vertical);
 	}
 
 	void draw(Graphics g) {
-
-		// r.draw(g);
-	
-		wall.draw(g);
+		enemy.draw(g);
 		player.draw(g);
+		room.draw(g);
+		wall.draw(g);
 	}
 
 	void update() {
 
-		checkCollisions();
+		for (int x = 0; x < 4; x++) {
+			addCollisionBoxes(room.walls[x].information.collisionBox);
+		}
+		addCollisionBoxes(wall.collisionBox);
 		player.update();
+		enemy.update();
 
 	}
 
+	void addCollisionBoxes(Rectangle r) {
+
+		player.addCollisionBox(r);
+
+	}
 
 	void checkCollisions() {
-		player.addCollisionBox(wall.collisionBox);
-		
 
 	}
 

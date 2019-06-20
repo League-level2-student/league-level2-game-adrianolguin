@@ -5,7 +5,9 @@ public class GameObject {
 
 	boolean alive = true;
 	boolean canMove = true;
-	
+
+	ObjectInfo information;
+
 	int x;
 	int y;
 	int width;
@@ -13,13 +15,15 @@ public class GameObject {
 	int speed;
 	Rectangle collisionBox;
 
-	GameObject(int x, int y, int width, int height, int speed) {
+	GameObject(int x, int y, int width, int height) {
+
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
-		this.speed = speed;
 		collisionBox = new Rectangle(x, y, height, width);
+
+		information = new ObjectInfo(x, y, width, height, speed, "", collisionBox);
 	}
 
 	void update() {

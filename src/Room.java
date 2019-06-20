@@ -14,14 +14,12 @@ public class Room {
 
 	Wall[] walls;
 
-	Room(int x, int y, int wallWidth, int height, Player player) {
+	Room(int x, int y, int wallWidth, int height) {
 
 		this.x = x;
 		this.y = y;
 		this.wallWidth = wallWidth;
 		this.height = height;
-
-		this.player = player;
 
 		walls = new Wall[4];
 

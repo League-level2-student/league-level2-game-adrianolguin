@@ -13,31 +13,17 @@ public class Player extends GameObject {
 	boolean LEFT;
 	boolean RIGHT;
 
-	Rectangle collisionLine1;
-	Rectangle collisionLine2;
-	Rectangle collisionLine3;
-	Rectangle collisionLine4;
-
-	Rectangle collisionBox;
-
 	ArrayList<Rectangle> collisionBoxes;
 
 	Player(int x, int y, int width, int height, int speed) {
-		super(x, y, width, height, speed);
+		super(x, y, width, height);
 		// TODO Auto-generated constructor stub
 
-		collisionBox = new Rectangle(x, y, width, height);
+		information.Object.equals("Player");
+		this.speed = speed;
+
 		collisionBoxes = new ArrayList<Rectangle>();
 
-		collisionLine1 = new Rectangle(x, y + height / 2, 1, 1);
-		collisionLine2 = new Rectangle(x + height / 2, y, 1, 1);
-		collisionLine3 = new Rectangle(x + width, y + height / 2, 1, 1);
-		collisionLine4 = new Rectangle(x + width / 2, y + width, 1, 1);
-
-		collisionLine1.setBounds(collisionLine1);
-		collisionLine2.setBounds(collisionLine2);
-		collisionLine3.setBounds(collisionLine3);
-		collisionLine4.setBounds(collisionLine4);
 	}
 
 	void update() {
@@ -50,35 +36,29 @@ public class Player extends GameObject {
 		if (DOWN) {
 			collisionBox.y += speed;
 		}
+		checkCollisions();
+
+		if (CBIntersecting == true) {
+			collisionBox.y = y;
+			CBIntersecting = false;
+		} else if (CBIntersecting == false) {
+			y = collisionBox.y;
+
+		}
+
 		if (LEFT) {
 			collisionBox.x -= speed;
 		}
 		if (RIGHT) {
 			collisionBox.x += speed;
 		}
-
-		// check if collisionBox is intersecting with another collisionBox
-
 		checkCollisions();
 
-		// if it is intersecting then make it so the player does not move
-
-		if (CBIntersecting) {
-
+		if (CBIntersecting == true) {
+			collisionBox.x = x;
 			CBIntersecting = false;
-		} else {
+		} else if (CBIntersecting == false) {
 			x = collisionBox.x;
-			y = collisionBox.y;
-
-			collisionLine1.setLocation(x, y);
-			collisionLine2.setLocation(x, y);
-			collisionLine3.setLocation(x, y);
-			collisionLine4.setLocation(x, y);
-
-			collisionLine1.setBounds(collisionLine1);
-			collisionLine2.setBounds(collisionLine2);
-			collisionLine3.setBounds(collisionLine3);
-			collisionLine4.setBounds(collisionLine4);
 
 		}
 
@@ -90,12 +70,6 @@ public class Player extends GameObject {
 
 		g.setColor(Color.blue);
 		g.fillRect(x, y, width, height);
-
-		g.setColor(Color.GREEN);
-		g.fillRect(collisionLine1.x, collisionLine1.y, collisionLine1.width, collisionLine1.height);
-		g.fillRect(collisionLine2.x, collisionLine2.y, collisionLine2.width, collisionLine2.height);
-		g.fillRect(collisionLine3.x, collisionLine3.y, collisionLine3.width, collisionLine3.height);
-		g.fillRect(collisionLine4.x, collisionLine4.y, collisionLine4.width, collisionLine4.height);
 
 	}
 
@@ -127,10 +101,15 @@ public class Player extends GameObject {
 
 				CBIntersecting = true;
 				System.out.println("intersecting");
-
 			}
 		}
 
 	}
+
+//make a big check collision method like you did in league invaders and change the
+//players position within the object manager class using getters and setters,after
+//all the object manager class MANAGES all aspects of an object the object class 
+//itself is just an object, its not supposed to do anything by itself, not really
+	
 
 }
