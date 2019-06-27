@@ -16,7 +16,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	GamePanel() {
 		timer = new Timer(1000 / 60, this);
-		player = new Player(Evo.width / 2, Evo.height / 2, 10, 10, 5);
+		player = new Player(Evo.width / 2, Evo.height / 2, 20, 20, 5);
 		manager = new ObjectManager(player);
 	}
 

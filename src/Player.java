@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class Player extends GameObject {
 
+	
 	boolean CBIntersecting;
 
 	boolean UP;
@@ -13,37 +14,37 @@ public class Player extends GameObject {
 	boolean LEFT;
 	boolean RIGHT;
 
-	ArrayList<Rectangle> collisionBoxes;
+	Rectangle left;
+	Rectangle right;
+	Rectangle up;
+	Rectangle down;
 
 	Player(int x, int y, int width, int height, int speed) {
 		super(x, y, width, height);
 		// TODO Auto-generated constructor stub
 
-		information.Object.equals("Player");
 		this.speed = speed;
 
-		collisionBoxes = new ArrayList<Rectangle>();
+		health = 20;
+		
+		up = new Rectangle(x + 10, y - 5, 1, 5);
+		down = new Rectangle(x + 10, y + height, 1, 5);
+		left = new Rectangle(x - 5, y + 10, 5, 1);
+		right = new Rectangle(x + height, y + 10, 5, 1);
 
+		up.setBounds(up);
+		down.setBounds(down);
+		right.setBounds(right);
+		left.setBounds(left);
 	}
 
 	void update() {
-
-		super.update();
 
 		if (UP) {
 			collisionBox.y -= speed;
 		}
 		if (DOWN) {
 			collisionBox.y += speed;
-		}
-		checkCollisions();
-
-		if (CBIntersecting == true) {
-			collisionBox.y = y;
-			CBIntersecting = false;
-		} else if (CBIntersecting == false) {
-			y = collisionBox.y;
-
 		}
 
 		if (LEFT) {
@@ -52,24 +53,42 @@ public class Player extends GameObject {
 		if (RIGHT) {
 			collisionBox.x += speed;
 		}
-		checkCollisions();
 
-		if (CBIntersecting == true) {
-			collisionBox.x = x;
-			CBIntersecting = false;
-		} else if (CBIntersecting == false) {
-			x = collisionBox.x;
+		x = collisionBox.x;
+		y = collisionBox.y;
 
-		}
+		up.x = collisionBox.x + 10;
+		up.y = collisionBox.y - 5;
+
+		down.x = collisionBox.x + 10;
+		down.y = collisionBox.y + height;
+
+		left.x = collisionBox.x - 5;
+		left.y = collisionBox.y + 10;
+
+		right.x = collisionBox.x + height;
+		right.y = collisionBox.y + 10;
+
+		up.setBounds(up);
+		down.setBounds(down);
+		right.setBounds(right);
+		left.setBounds(left);
 
 	}
 
+	// left right
 	void draw(Graphics g) {
 		g.setColor(Color.RED);
 		g.fillRect(collisionBox.x, collisionBox.y, collisionBox.width, collisionBox.height);
 
 		g.setColor(Color.blue);
 		g.fillRect(x, y, width, height);
+
+		g.setColor(Color.PINK);
+		g.fillRect(up.x, up.y, up.width, up.height);
+		g.fillRect(down.x, down.y, down.width, down.height);
+		g.fillRect(left.x, left.y, left.width, left.height);
+		g.fillRect(right.x, right.y, right.width, right.height);
 
 	}
 
@@ -90,26 +109,13 @@ public class Player extends GameObject {
 
 	}
 
-	void addCollisionBox(Rectangle r) {
-		collisionBoxes.add(r);
-	}
-
-	void checkCollisions() {
-
-		for (Rectangle r : collisionBoxes) {
-			if (collisionBox.intersects(r)) {
-
-				CBIntersecting = true;
-				System.out.println("intersecting");
-			}
-		}
-
-	}
-
-//make a big check collision method like you did in league invaders and change the
-//players position within the object manager class using getters and setters,after
-//all the object manager class MANAGES all aspects of an object the object class 
-//itself is just an object, its not supposed to do anything by itself, not really
-	
+	// make a big check collision method like you did in league invaders and change
+	// the
+	// players position within the object manager class using getters and
+	// setters,after
+	// all the object manager class MANAGES all aspects of an object the object
+	// class
+	// itself is just an object, its not supposed to do anything by itself, not
+	// really
 
 }

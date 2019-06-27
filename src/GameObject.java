@@ -3,16 +3,21 @@ import java.awt.Rectangle;
 
 public class GameObject {
 
+	
+
+	boolean invincible;
 	boolean alive = true;
 	boolean canMove = true;
 
-	ObjectInfo information;
 
 	int x;
 	int y;
 	int width;
 	int height;
 	int speed;
+	
+	int health;
+	
 	Rectangle collisionBox;
 
 	GameObject(int x, int y, int width, int height) {
@@ -23,7 +28,6 @@ public class GameObject {
 		this.height = height;
 		collisionBox = new Rectangle(x, y, height, width);
 
-		information = new ObjectInfo(x, y, width, height, speed, "", collisionBox);
 	}
 
 	void update() {
