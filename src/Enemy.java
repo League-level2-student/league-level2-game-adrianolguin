@@ -1,28 +1,52 @@
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
 public class Enemy extends GameObject {
 
-	Enemy(int x, int y, int width, int height, int speed) {
-		super(x, y, width, height);
-		// TODO Auto-generated constructor stub
-		this.speed = speed;
+	Enemy(int x, int y) {
+		super(x, y);
+
+		width = 10;
+		height = 10;
+
 		collisionBox = new Rectangle(x, y, width, height);
 		collisionBox.setBounds(collisionBox);
 	}
 
 	void update() {
-		x += speed;
+		super.update();
+
+		// x--;
 		collisionBox.x = x;
 		collisionBox.y = y;
-		collisionBox.setBounds(collisionBox);
 
 	}
 
 	void draw(Graphics g) {
-		g.setColor(Color.RED);
+		g.setColor(Color.red);
 		g.fillRect(x, y, width, height);
+	}
+
+	void setX(int newx) {
+		x = newx;
+	}
+
+	void setY(int newy) {
+		y = newy;
+	}
+
+	int getX() {
+		return x;
+	}
+
+	int getY() {
+		return y;
+	}
+
+	Rectangle getCollisionBox() {
+		return collisionBox;
 	}
 
 }

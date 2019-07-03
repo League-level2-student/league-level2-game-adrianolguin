@@ -3,35 +3,38 @@ import java.awt.Rectangle;
 
 public class GameObject {
 
-	
+	boolean UP;
+	boolean DOWN;
+	boolean RIGHT;
+	boolean LEFT;
 
-	boolean invincible;
+	boolean invincible = false;
+	boolean intersecting = false;
 	boolean alive = true;
-	boolean canMove = true;
-
-
+	
 	int x;
 	int y;
 	int width;
 	int height;
+
 	int speed;
-	
+
 	int health;
-	
+
 	Rectangle collisionBox;
 
-	GameObject(int x, int y, int width, int height) {
-
+	GameObject(int x, int y) {
 		this.x = x;
 		this.y = y;
-		this.width = width;
-		this.height = height;
-		collisionBox = new Rectangle(x, y, height, width);
+
+	}
+
+	void manageDir() {
 
 	}
 
 	void update() {
-		collisionBox.setBounds(x, y, width, height);
+
 	}
 
 	void draw(Graphics g) {

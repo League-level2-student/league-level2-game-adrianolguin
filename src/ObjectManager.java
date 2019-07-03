@@ -1,53 +1,33 @@
 import java.awt.Graphics;
 import java.awt.Rectangle;
-import java.awt.event.KeyEvent;
-import java.util.ArrayList;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.Timer;
 
-public class ObjectManager {
+public class ObjectManager implements ActionListener {
 
-	
-
-	int Vertical = 0;
-	int Horizontal = 1;
-
-	Player player;
-
-	Enemy enemy;
-
-	Room room;
-
-	Wall wall;
-	Wall wall2;
+	boolean open = true;
+	boolean close = false;
 
 	Timer iFrames;
 
-	// timer that handles invincibility frames();
+	Player p;
 
-	ObjectManager(Player player) {
-		this.player = player;
+	ObjectManager(Player p) {
 
-		enemy = new Enemy(200, 100, 10, 10, 1);
+		this.p = p;
 
-		wall = new Wall(100, 100, player.width, 100);
-		wall2 = new Wall(100, 100, 100, player.width);
+		iFrames = new Timer(1000, this);
 	}
 
 	void draw(Graphics g) {
-
-		wall.draw(g);
-		wall2.draw(g);
-		enemy.draw(g);
-
-		player.draw(g);
+		p.draw(g);
 	}
 
 	void update() {
 
-		player.update();
-
-		enemy.update();
+		p.update();
 
 		checkAllCollisions();
 
@@ -55,59 +35,62 @@ public class ObjectManager {
 
 	void checkAllCollisions() {
 		checkWallCollisions();
-
 		checkEnemyCollisions();
-
-		checkBulletCollisions();
-	}
-
-	void checkBulletCollisions() {
-		// if bullet then take damage
-		// get rid of bullet
-
-		// if your bullet enemy
-		// enemy damage
-		// get rid of bullet
 	}
 
 	void checkEnemyCollisions() {
-
-		if (player.collisionBox.intersects(enemy.collisionBox)) {
-
-			player.invincible = true;
-
-			player.health--;
-			System.out.println(player.health);
-		}
 
 	}
 
 	void checkWallCollisions() {
 
-		checkWall(wall.collisionBox);
-		checkWall(wall2.collisionBox);
 	}
 
-	void checkWall(Rectangle wall) {
-		if (player.collisionBox.intersects(wall)) {
+	void checkWall(Wall w) {
+		if (p.getCollisionBox().intersects(w.collisionBox)) {
 
-			if (player.up.intersects(wall)) {
-				player.y += player.speed;
-				player.collisionBox.y = player.y;
+			if (p.collisionLine1.intersects(w.door)) {
+			} else if (p.collisionLine1.intersects(w.collisionBox)) {
+				p.setX(p.getX() + p.getSpeed());
+				p.setCBPos(p.getX(), p.getY());
 			}
-			if (player.down.intersects(wall)) {
-				player.y -= player.speed;
-				player.collisionBox.y = player.y;
+			if (p.collisionLine2.intersects(w.door)) {
+
+			} else if (p.collisionLine2.intersects(w.collisionBox)) {
+				p.setY(p.getY() + p.getSpeed());
+				p.setCBPos(p.getX(), p.getY());
 			}
-			if (player.left.intersects(wall)) {
-				player.x += player.speed;
-				player.collisionBox.x = player.x;
+			if (p.collisionLine3.intersects(w.door)) {
+			} else if (p.collisionLine3.intersects(w.collisionBox)) {
+				p.setX(p.getX() - p.getSpeed());
+				p.setCBPos(p.getX(), p.getY());
 			}
-			if (player.right.intersects(wall)) {
-				player.x -= player.speed;
-				player.collisionBox.x = player.x;
+			if (p.collisionLine4.intersects(w.door)) {
+			} else if (p.collisionLine4.intersects(w.collisionBox)) {
+				p.setY(p.getY() - p.getSpeed());
+				p.setCBPos(p.getX(), p.getY());
+			}
+
+		}
+	}
+
+	void checkEnemy(Enemy e) {
+		if (p.invincible) {
+
+		} else {
+			if (p.getCollisionBox().intersects(e.getCollisionBox())) {
+				p.health--;
+				p.invincible = true;
+				iFrames.start();
+				System.out.println(p.health);
 			}
 		}
+	}
 
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+
+		p.invincible = false;
+		iFrames.stop();
 	}
 }

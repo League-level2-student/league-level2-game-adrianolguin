@@ -15,51 +15,51 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	ObjectManager manager;
 
 	GamePanel() {
+
 		timer = new Timer(1000 / 60, this);
-		player = new Player(Evo.width / 2, Evo.height / 2, 20, 20, 5);
+		player = new Player(200, 100);
 		manager = new ObjectManager(player);
 	}
 
-	void start() {
+	void startGame() {
 		timer.start();
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
-	
-		
-		
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+
 		manager.update();
+
 		repaint();
-		
 	}
 
 	public void paintComponent(Graphics g) {
 		g.setColor(Color.black);
-		g.fillRect(0, 0, Evo.width, Evo.height);
+		g.fillRect(0, 0, Evolution.width, Evolution.height);
 
 		manager.draw(g);
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		int keyCode = e.getKeyCode();
 
-		//System.out.println(keyCode);
-		
-		player.manageDir(keyCode, true);
-
+		int keyPressed = e.getKeyCode();
+		player.manageDir(keyPressed, true);
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		int keyCode = e.getKeyCode();
 
-		player.manageDir(keyCode, false);
+		int keyPressed = e.getKeyCode();
+		player.manageDir(keyPressed, false);
+
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
+
+		int keyPressed = e.getKeyCode();
 
 	}
 
