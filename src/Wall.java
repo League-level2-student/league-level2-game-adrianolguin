@@ -50,6 +50,7 @@ public class Wall extends GameObject {
 		g.setColor(Color.green);
 		g.fillRect(door.x, door.y, door.width, door.height);
 
+		
 	}
 
 	void doorSize(int num) {

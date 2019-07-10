@@ -12,13 +12,18 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	Timer timer;
 	Player player;
-	ObjectManager manager;
+	ObjectManager oManager;
+	FloorManager fManager;
+	
+	boolean test;
 
 	GamePanel() {
 
 		timer = new Timer(1000 / 60, this);
 		player = new Player(200, 100);
-		manager = new ObjectManager(player);
+		oManager = new ObjectManager(player);
+		fManager = new FloorManager(player);
+		fManager.createFloor();
 	}
 
 	void startGame() {
@@ -29,7 +34,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
 
-		manager.update();
+		oManager.update();
 
 		repaint();
 	}
@@ -38,7 +43,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.setColor(Color.black);
 		g.fillRect(0, 0, Evolution.width, Evolution.height);
 
-		manager.draw(g);
+		oManager.draw(g);
+		fManager.draw(g);
+
 	}
 
 	@Override
@@ -46,6 +53,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 		int keyPressed = e.getKeyCode();
 		player.manageDir(keyPressed, true);
+
 	}
 
 	@Override

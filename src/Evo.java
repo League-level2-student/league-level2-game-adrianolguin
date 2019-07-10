@@ -26,7 +26,7 @@ public class Evo {
 		Evo main = new Evo();
 		main.setup();
 
-		panel.start();
+		panel.startGame();
 
 	}
 }

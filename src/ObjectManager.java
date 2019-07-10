@@ -22,7 +22,9 @@ public class ObjectManager implements ActionListener {
 	}
 
 	void draw(Graphics g) {
+
 		p.draw(g);
+		
 	}
 
 	void update() {
