@@ -13,8 +13,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Timer timer;
 	Player player;
 	ObjectManager oManager;
-	FloorManager fManager;
-	
+	//FloorManager fManager;
+
 	boolean test;
 
 	GamePanel() {
@@ -22,8 +22,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		timer = new Timer(1000 / 60, this);
 		player = new Player(200, 100);
 		oManager = new ObjectManager(player);
-		fManager = new FloorManager(player);
-		fManager.createFloor();
+//		fManager = new FloorManager(player);
+//		fManager.createFloor();
 	}
 
 	void startGame() {
@@ -36,6 +36,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 		oManager.update();
 
+		checkCollisions();
+		
 		repaint();
 	}
 
@@ -44,7 +46,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.fillRect(0, 0, Evolution.width, Evolution.height);
 
 		oManager.draw(g);
-		fManager.draw(g);
+		//fManager.draw(g);
 
 	}
 
@@ -69,6 +71,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 		int keyPressed = e.getKeyCode();
 
+	}
+
+
+	void checkCollisions() {
+		oManager.checkAllCollisions();
 	}
 
 }

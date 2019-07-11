@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.ArrayList;
@@ -5,37 +6,25 @@ import java.util.Random;
 
 public class FloorManager {
 
-	ArrayList<Room> floor = new ArrayList<Room>();
 
-	Random random;
-
-	Player p;
-
-	FloorManager(Player p) {
-
-		this.p = p;
-		random = new Random();
-	}
-
-	void createFloor() {
-
-		floor.add(new Room(100, 100, 200, 200, false, false, false, true));
+	FloorManager() {
 
 	}
 
-	void startChallenge(Room r) {
+	void createFloor(boolean[][] info) {
 
-		int numEnemies = random.nextInt(5) + 1;
+		Room[][] floor = new Room[info.length][info[0].length];
+		
+		for (int i = 0; i < floor.length; i++) {
+			for (int j = 0; j < floor[0].length; j++) {
 
-		Rectangle area = new Rectangle(r.x + r.wallWidth, r.y + r.wallWidth, r.width - r.wallWidth,
-				r.height - r.wallWidth);
+				if (info[i][j]) {
+					floor[i][j] = new Room(i * 10, j * 10, 100, 100, false, false, false, false);
+				} else {
 
-	}
+				}
 
-	void draw(Graphics g) {
-
-		for (int x = 0; x < floor.size(); x++) {
-			floor.get(x).draw(g);
+			}
 		}
 
 	}

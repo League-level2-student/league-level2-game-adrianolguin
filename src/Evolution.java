@@ -3,12 +3,12 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 
 public class Evolution {
-
-	static final int width = 950;
-	static final int height = 690;
-
+	
 	JFrame frame = new JFrame();
 	static GamePanel panel = new GamePanel();
+	
+	static final int width = 950;
+	static final int height = 690;
 
 	void setup() {
 		frame.add(panel);
