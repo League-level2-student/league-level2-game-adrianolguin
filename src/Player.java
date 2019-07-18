@@ -74,11 +74,11 @@ public class Player extends GameObject {
 		g.setColor(Color.YELLOW);
 		g.fillRect(getCBX(), getCBY(), width, height);
 
-		g.setColor(Color.red);
-		g.fillRect(collisionLine1.x, collisionLine1.y, collisionLine1.width, collisionLine1.height);
-		g.fillRect(collisionLine2.x, collisionLine2.y, collisionLine2.width, collisionLine2.height);
-		g.fillRect(collisionLine3.x, collisionLine3.y, collisionLine3.width, collisionLine3.height);
-		g.fillRect(collisionLine4.x, collisionLine4.y, collisionLine4.width, collisionLine4.height);
+//		g.setColor(Color.red);
+//		g.fillRect(collisionLine1.x, collisionLine1.y, collisionLine1.width, collisionLine1.height);
+//		g.fillRect(collisionLine2.x, collisionLine2.y, collisionLine2.width, collisionLine2.height);
+//		g.fillRect(collisionLine3.x, collisionLine3.y, collisionLine3.width, collisionLine3.height);
+//		g.fillRect(collisionLine4.x, collisionLine4.y, collisionLine4.width, collisionLine4.height);
 
 		if (invincible) {
 			g.setColor(Color.pink);

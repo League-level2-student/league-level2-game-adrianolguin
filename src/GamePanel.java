@@ -10,20 +10,31 @@ import javax.swing.Timer;
 
 public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
+	int sWidth = Evolution.width;
+	int sHeight = Evolution.height;
+
 	Timer timer;
 	Player player;
 	ObjectManager oManager;
-	//FloorManager fManager;
 
-	boolean test;
+	FloorManager fManager;
 
 	GamePanel() {
 
 		timer = new Timer(1000 / 60, this);
 		player = new Player(200, 100);
-		oManager = new ObjectManager(player);
-//		fManager = new FloorManager(player);
-//		fManager.createFloor();
+
+		fManager = new FloorManager(3, 2);
+		fManager.setPos(0, 0);
+
+		fManager.setRoom(0, 0, new Room(50, 50, sWidth - 100, sHeight - 100, false, false, true, false));
+		fManager.setRoom(1, 0, new Room(50, 50, sWidth - 100, sHeight - 100, true, false, false, true));
+		fManager.setRoom(1, 1, new Room(50, 50, sWidth - 100, sHeight - 100, false, true, true, false));
+		fManager.setRoom(2, 1, new Room(50, 50, sWidth - 100, sHeight - 100, true, false, true, false));
+		
+		oManager = new ObjectManager(player, fManager);
+		changeRoom(fManager.floor[fManager.floorX][fManager.floorY]);
+
 	}
 
 	void startGame() {
@@ -37,7 +48,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		oManager.update();
 
 		checkCollisions();
-		
+
 		repaint();
 	}
 
@@ -46,7 +57,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.fillRect(0, 0, Evolution.width, Evolution.height);
 
 		oManager.draw(g);
-		//fManager.draw(g);
 
 	}
 
@@ -55,6 +65,20 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 		int keyPressed = e.getKeyCode();
 		player.manageDir(keyPressed, true);
+
+		// if (keyPressed == KeyEvent.VK_NUMPAD5) {
+		// floorY--;
+		// changeRoom(fManager.floor[floorX][floorY]);
+		// } else if (keyPressed == KeyEvent.VK_NUMPAD2) {
+		// floorY++;
+		// changeRoom(fManager.floor[floorX][floorY]);
+		// } else if (keyPressed == KeyEvent.VK_NUMPAD1) {
+		// floorX--;
+		// changeRoom(fManager.floor[floorX][floorY]);
+		// } else if (keyPressed == KeyEvent.VK_NUMPAD3) {
+		// floorX++;
+		// changeRoom(fManager.floor[floorX][floorY]);
+		// }
 
 	}
 
@@ -73,9 +97,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	}
 
-
 	void checkCollisions() {
 		oManager.checkAllCollisions();
+	}
+
+	void changeRoom(Room r) {
+		oManager.changeCurrentRoom(r);
 	}
 
 }

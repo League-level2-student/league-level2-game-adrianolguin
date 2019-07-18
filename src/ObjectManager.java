@@ -8,9 +8,6 @@ import javax.swing.Timer;
 
 public class ObjectManager implements ActionListener {
 
-	ArrayList<Room> rooms = new ArrayList<Room>();
-
-	FloorLayouts fInfo;
 	FloorManager fManager;
 
 	boolean open = true;
@@ -18,26 +15,31 @@ public class ObjectManager implements ActionListener {
 
 	Timer iFrames;
 
-	Player p;
+	Player player;
 
-	ObjectManager(Player p) {
+	Room currentRoom;
 
-		fManager = new FloorManager();
+	ObjectManager(Player player, FloorManager fManager) {
 
-		this.p = p;
+		this.fManager = fManager;
+
+		this.player = player;
 
 		iFrames = new Timer(1000, this);
 	}
 
 	void draw(Graphics g) {
 
-		p.draw(g);
+		player.draw(g);
 
+		if (currentRoom != null) {
+			currentRoom.draw(g);
+		}
 	}
 
 	void update() {
 
-		p.update();
+		player.update();
 
 	}
 
@@ -52,69 +54,69 @@ public class ObjectManager implements ActionListener {
 
 	void checkWallCollisions() {
 
-		for (int i = 0; i < rooms.size(); i++) {
-			checkWall(rooms.get(i).walls[0]);
-			checkWall(rooms.get(i).walls[1]);
-			checkWall(rooms.get(i).walls[2]);
-			checkWall(rooms.get(i).walls[3]);
-
+		for (int x = 0; x < 4; x++) {
+			if (currentRoom != null) {
+				checkWall(currentRoom.walls[x]);
+			}
 		}
-
-		// for (int x = 0; x < 4; x++) {
-		//
-		// }
-
-	}
-
-	void addRoom(Room r) {
 
 	}
 
 	void checkWall(Wall w) {
-		if (p.getCollisionBox().intersects(w.collisionBox)) {
+		if (player.getCollisionBox().intersects(w.collisionBox)) {
 
-			if (p.collisionLine1.intersects(w.door)) {
-			} else if (p.collisionLine1.intersects(w.collisionBox)) {
-				p.setX(p.getX() + p.getSpeed());
-				p.setCBPos(p.getX(), p.getY());
+			if (player.collisionLine1.intersects(w.door)) {
+			} else if (player.collisionLine1.intersects(w.collisionBox)) {
+				player.setX(player.getX() + player.getSpeed());
+				player.setCBPos(player.getX(), player.getY());
 			}
-			if (p.collisionLine2.intersects(w.door)) {
+			if (player.collisionLine2.intersects(w.door)) {
 
-			} else if (p.collisionLine2.intersects(w.collisionBox)) {
-				p.setY(p.getY() + p.getSpeed());
-				p.setCBPos(p.getX(), p.getY());
+			} else if (player.collisionLine2.intersects(w.collisionBox)) {
+				player.setY(player.getY() + player.getSpeed());
+				player.setCBPos(player.getX(), player.getY());
 			}
-			if (p.collisionLine3.intersects(w.door)) {
-			} else if (p.collisionLine3.intersects(w.collisionBox)) {
-				p.setX(p.getX() - p.getSpeed());
-				p.setCBPos(p.getX(), p.getY());
+			if (player.collisionLine3.intersects(w.door)) {
+				fManager.floorX++;
+				changeCurrentRoom(fManager.floor[fManager.floorX][fManager.floorY]);
+
+				player.setPos(300, 300);
+
+			} else if (player.collisionLine3.intersects(w.collisionBox)) {
+				player.setX(player.getX() - player.getSpeed());
+				player.setCBPos(player.getX(), player.getY());
 			}
-			if (p.collisionLine4.intersects(w.door)) {
-			} else if (p.collisionLine4.intersects(w.collisionBox)) {
-				p.setY(p.getY() - p.getSpeed());
-				p.setCBPos(p.getX(), p.getY());
+			if (player.collisionLine4.intersects(w.door)) {
+			} else if (player.collisionLine4.intersects(w.collisionBox)) {
+				player.setY(player.getY() - player.getSpeed());
+				player.setCBPos(player.getX(), player.getY());
 			}
 
 		}
 	}
 
 	void checkEnemy(Enemy e) {
-		if (p.invincible) {
+		if (player.invincible) {
 
 		} else {
-			if (p.getCollisionBox().intersects(e.getCollisionBox())) {
-				p.health--;
-				p.invincible = true;
+			if (player.getCollisionBox().intersects(e.getCollisionBox())) {
+				player.health--;
+				player.invincible = true;
 				iFrames.start();
-				System.out.println(p.health);
+				System.out.println(player.health);
 			}
 		}
+	}
+
+	void changeCurrentRoom(Room r) {
+		currentRoom = r;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 
-		p.invincible = false;
+		player.invincible = false;
 		iFrames.stop();
 	}
+
 }

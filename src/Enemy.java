@@ -18,7 +18,6 @@ public class Enemy extends GameObject {
 	void update() {
 		super.update();
 
-		// x--;
 		collisionBox.x = x;
 		collisionBox.y = y;
 
