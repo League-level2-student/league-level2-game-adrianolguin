@@ -13,12 +13,10 @@ import javax.swing.Timer;
 
 public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
-	// public static BufferedImage rocketImg;
 	public static BufferedImage heartImg;
 	public static BufferedImage brokenHeartImg;
 	public static BufferedImage damagedHeartImg;
 	
-
 	boolean showMiniMap = true;
 
 	int currentRoomX;
@@ -36,8 +34,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 		try {
 			heartImg = ImageIO.read(this.getClass().getResourceAsStream("Heart.png"));
-			damagedHeartImg = ImageIO.read(this.getClass().getResourceAsStream("Heart.png"));
-			brokenHeartImg = ImageIO.read(this.getClass().getResourceAsStream("Heart.png"));
+			damagedHeartImg = ImageIO.read(this.getClass().getResourceAsStream("DamagedHeart.png"));
+			brokenHeartImg = ImageIO.read(this.getClass().getResourceAsStream("BrokenHeart.png"));
 
 		} catch (IOException e) {
 			e.printStackTrace();
