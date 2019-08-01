@@ -26,7 +26,7 @@ public class FloorManager {
 	Room COCO = new Room(50, 50, sWidth - 50, sHeight - 100, false, true, false, true);
 	Room COOC = new Room(50, 50, sWidth - 50, sHeight - 100, false, true, true, false);
 
-	FloorManager(int preset) {
+	FloorManager(int preset, Player p) {
 
 		loadPreset(preset);
 
@@ -57,26 +57,42 @@ public class FloorManager {
 
 	void loadPreset(int presetNum) {
 
-		miniMapRWidth = miniMapWidth / 3;
-		miniMapRHeight = miniMapHeight / 3;
-
 		if (presetNum == 1) {
+
 			floorCols = 3;
 			floorRows = 3;
 			floor = new Room[floorCols][floorRows];
 
+			miniMapRWidth = miniMapWidth/floorCols;
+			miniMapRHeight = miniMapHeight/floorRows;
+			
 			floor[0][0] = CCOC;
 			floor[1][0] = OCCO;
 			floor[1][1] = COCO;
 			floor[1][2] = new Room(50, 50, sWidth - 50, sHeight - 100, false, true, true, false);
 			floor[2][2] = new Room(50, 50, sWidth - 50, sHeight - 100, true, false, false, false);
+			
+			floor[1][1].containing.add(new Enemy(300,300));
 
 		} else if (presetNum == 2) {
 
-			floorCols = 3;
-			floorRows = 3;
+			floorCols = 4;
+			floorRows = 4;
 			floor = new Room[floorCols][floorRows];
-
+			
+			miniMapRWidth = miniMapWidth/floorCols;
+			miniMapRHeight = miniMapHeight/floorRows;
+			
+			floor[0][0] = new Room(50, 50, sWidth - 50, sHeight - 100, false, false, false, true);
+			floor[0][1] = new Room(50, 50, sWidth - 50, sHeight - 100, false, true, true, false);
+			floor[1][1] = new Room(50, 50, sWidth - 50, sHeight - 100, true, false, true, false);
+			floor[2][1] = new Room(50, 50, sWidth - 50, sHeight - 100, true, false, false, true);
+			floor[2][2] = new Room(50, 50, sWidth - 50, sHeight - 100, false, true, false, true);
+			floor[2][3] = new Room(50, 50, sWidth - 50, sHeight - 100, false, true, true, false);
+			floor[3][3] = new Room(50, 50, sWidth - 50, sHeight - 100, true, false, false, false);
+			
+			floor[0][0].containing.add(new Enemy(200,200));
+			floor[0][0].containing.add(new Enemy(300,200));
 		}
 
 	}

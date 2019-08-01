@@ -4,7 +4,10 @@ import java.util.ArrayList;
 
 public class Health {
 
-	int sWidth = Evolution.width - 720;
+	int x;
+	int y;
+
+	int sWidth = Evolution.width - 250;
 	int sHeight = Evolution.height;
 
 	int maxHealth = 20;
@@ -14,7 +17,10 @@ public class Health {
 
 	ArrayList<BufferedImage> health;
 
-	Health() {
+	Health(int x, int y) {
+
+		this.x = x;
+		this.y = y;
 
 		health = new ArrayList<BufferedImage>();
 
@@ -26,36 +32,46 @@ public class Health {
 
 	void draw(Graphics g) {
 
-		for (int i = 0; i < health.size(); i++) {
+		if (currentHealth > maxHealth) {
 
-			if(i % 10 == 0) {
+			if (currentHealth % 2 == 0) {
+				maxHealth = currentHealth;
+			} else {
+				maxHealth = currentHealth + 1;
+			}
+
+		}
+
+		for (int i = 0; i < maxHealth/2; i++) {
+
+			if (i % 10 == 0) {
 				currentRow++;
 			}
-			
+
 			if (currentHealth == maxHealth) {
-				g.drawImage(GamePanel.heartImg, (sWidth + 40) + i * 40, 200, 64, 64, null);
+				g.drawImage(GamePanel.heartImg, x, (y) + i * 40, 64, 64, null);
 			} else {
 
 				if (currentHealth % 2 == 0) {
 
 					if (i < currentHealth / 2) {
 
-						g.drawImage(GamePanel.heartImg, (sWidth + 40) + i * 40, 200, 64, 64, null);
+						g.drawImage(GamePanel.heartImg, x, (y) + i * 40, 64, 64, null);
 					} else {
 
-						g.drawImage(GamePanel.brokenHeartImg, (sWidth + 40) + i * 40, 200, 64, 64, null);
+						g.drawImage(GamePanel.brokenHeartImg, x, (y) + i * 40, 64, 64, null);
 					}
 
 				} else {
 
 					if (i < currentHealth / 2) {
-						g.drawImage(GamePanel.heartImg, (sWidth + 40) + i * 40, 200, 64, 64, null);
+						g.drawImage(GamePanel.heartImg, x, (y) + i * 40, 64, 64, null);
 					} else if (i == currentHealth / 2) {
 
-						g.drawImage(GamePanel.damagedHeartImg, (sWidth + 40) + i * 40, 200, 64, 64, null);
+						g.drawImage(GamePanel.damagedHeartImg, x, (y) + i * 40, 64, 64, null);
 
 					} else {
-						g.drawImage(GamePanel.brokenHeartImg, (sWidth + 40) + i * 40, 200, 64, 64, null);
+						g.drawImage(GamePanel.brokenHeartImg, x, (y) + i * 40, 64, 64, null);
 					}
 
 				}

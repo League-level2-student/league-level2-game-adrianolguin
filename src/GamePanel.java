@@ -45,7 +45,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		player = new Player(200, 100);
 
 		oManager = new ObjectManager(player);
-		fManager = new FloorManager(1);
+		fManager = new FloorManager(2, player);
 		currentRoomX = 0;
 		currentRoomY = 0;
 		oManager.changeCurrentRoom(fManager.floor[currentRoomX][currentRoomY]);
@@ -82,7 +82,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 		oManager.draw(g);
 
-		// g.drawImage(heartImg, 400, 400, 64 * 4, 64 * 4, null);
+		
 	}
 
 	@Override
@@ -90,6 +90,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 		int keyPressed = e.getKeyCode();
 
+		player.manageDir(keyPressed, true);
+		
 		if (keyPressed == KeyEvent.VK_M) {
 			if (showMiniMap == false) {
 				showMiniMap = true;
@@ -102,7 +104,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			System.out.println(currentRoomX + ", " + currentRoomY);
 		}
 
-		player.manageDir(keyPressed, true);
+		if(keyPressed == KeyEvent.VK_0) {
+			player.health++;
+			oManager.healthBar.currentHealth = player.health;
+		}
 
 	}
 

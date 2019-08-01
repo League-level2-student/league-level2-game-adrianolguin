@@ -24,47 +24,29 @@ public class ObjectManager implements ActionListener {
 	boolean touchSouthDoor;
 	boolean touchWestDoor;
 
-	Enemy enemy1;
-
 	Timer iFrames;
 
 	Player player;
 
 	Room currentRoom;
-	
+
 	Health healthBar;
 
 	ObjectManager(Player player) {
 
 		this.player = player;
 
-		enemy1 = new Enemy(500, 500);
-
 		iFrames = new Timer(1000, this);
-	
-		healthBar = new Health();
+
+		healthBar = new Health(Evolution.width - 200, 200);
 	}
 
 	void draw(Graphics g) {
 
 		player.draw(g);
 
-		enemy1.draw(g);
-
 		healthBar.draw(g);
-		
-//		for (int i = 0; i < 5; i++) {
-//			g.drawImage(GamePanel.brokenHeartImg, (sWidth + 40) + i * 40, 200, 64, 64, null);
-//			g.drawImage(GamePanel.damagedHeartImg, (sWidth + 40) + i * 40, 200, 64, 64, null);
-//			g.drawImage(GamePanel.heartImg, (sWidth + 40) + i * 40, 200, 64, 64, null);
-//		}
-//		
-//		for (int i = 0; i < 5; i++) {
-//			g.drawImage(GamePanel.brokenHeartImg, (sWidth + 40) + i * 40, 240, 64, 64, null);
-//			g.drawImage(GamePanel.damagedHeartImg, (sWidth + 40) + i * 40, 240, 64, 64, null);
-//			g.drawImage(GamePanel.heartImg, (sWidth + 40) + i * 40, 240, 64, 64, null);
-//		}
-		
+
 		if (currentRoom != null) {
 			currentRoom.draw(g);
 		}
@@ -82,7 +64,13 @@ public class ObjectManager implements ActionListener {
 	}
 
 	void checkEnemyCollisions() {
-		checkEnemy(enemy1);
+
+		for (int x = 0; x < currentRoom.containing.size(); x++) {
+			if (currentRoom.containing.get(x).getClass() == Enemy.class) {
+				checkEnemy((Enemy) currentRoom.containing.get(x));
+			}
+		}
+
 	}
 
 	void checkWallCollisions() {
@@ -133,9 +121,9 @@ public class ObjectManager implements ActionListener {
 			if (player.getCollisionBox().intersects(e.getCollisionBox())) {
 				player.health--;
 				player.invincible = true;
+				healthBar.currentHealth = player.health;
 				iFrames.start();
 				System.out.println(player.health);
-				healthBar.currentHealth--;
 			}
 		}
 	}
