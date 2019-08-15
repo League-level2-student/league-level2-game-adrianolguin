@@ -56,6 +56,8 @@ public class ObjectManager implements ActionListener {
 
 		player.update();
 
+		currentRoom.updateContents();
+
 	}
 
 	void checkAllCollisions() {
@@ -124,6 +126,30 @@ public class ObjectManager implements ActionListener {
 				healthBar.currentHealth = player.health;
 				iFrames.start();
 				System.out.println(player.health);
+			}
+		}
+
+		for (int i = 0; i < currentRoom.containing.size(); i++) {
+			if (e != currentRoom.containing.get(i)) {
+				if (e.collisionLine1.intersects(currentRoom.containing.get(i).collisionBox)) {
+					e.collisionBox.x += e.width + e.collisionLine1.width;
+					e.canLeft = false;
+				}
+
+				if (e.collisionLine2.intersects(currentRoom.containing.get(i).collisionBox)) {
+					e.collisionBox.y -= e.speed + e.collisionLine2.height;
+					e.canUp = false;
+				}
+
+				if (e.collisionLine3.intersects(currentRoom.containing.get(i).collisionBox)) {
+					e.collisionBox.x += e.speed + e.collisionLine3.width;
+					e.canRight = false;
+				}
+
+				if (e.collisionLine4.intersects(currentRoom.containing.get(i).collisionBox)) {
+					e.collisionBox.y -= e.speed + e.collisionLine3.height;
+					e.canDown = false;
+				}
 			}
 		}
 	}

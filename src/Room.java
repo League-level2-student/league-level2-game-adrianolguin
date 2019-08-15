@@ -51,5 +51,13 @@ public class Room {
 		}
 
 	}
+	
+	void updateContents() {
+		
+		for(int x = 0; x < containing.size(); x++) {
+			containing.get(x).update();
+		}
+		
+	}
 
 }

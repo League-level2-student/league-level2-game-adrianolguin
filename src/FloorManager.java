@@ -26,7 +26,11 @@ public class FloorManager {
 	Room COCO = new Room(50, 50, sWidth - 50, sHeight - 100, false, true, false, true);
 	Room COOC = new Room(50, 50, sWidth - 50, sHeight - 100, false, true, true, false);
 
+	Player p;
+
 	FloorManager(int preset, Player p) {
+
+		this.p = p;
 
 		loadPreset(preset);
 
@@ -63,26 +67,26 @@ public class FloorManager {
 			floorRows = 3;
 			floor = new Room[floorCols][floorRows];
 
-			miniMapRWidth = miniMapWidth/floorCols;
-			miniMapRHeight = miniMapHeight/floorRows;
-			
+			miniMapRWidth = miniMapWidth / floorCols;
+			miniMapRHeight = miniMapHeight / floorRows;
+
 			floor[0][0] = CCOC;
 			floor[1][0] = OCCO;
 			floor[1][1] = COCO;
 			floor[1][2] = new Room(50, 50, sWidth - 50, sHeight - 100, false, true, true, false);
 			floor[2][2] = new Room(50, 50, sWidth - 50, sHeight - 100, true, false, false, false);
-			
-			floor[1][1].containing.add(new Enemy(300,300));
+
+			floor[1][1].containing.add(new Enemy(300, 300, p));
 
 		} else if (presetNum == 2) {
 
 			floorCols = 4;
 			floorRows = 4;
 			floor = new Room[floorCols][floorRows];
-			
-			miniMapRWidth = miniMapWidth/floorCols;
-			miniMapRHeight = miniMapHeight/floorRows;
-			
+
+			miniMapRWidth = miniMapWidth / floorCols;
+			miniMapRHeight = miniMapHeight / floorRows;
+
 			floor[0][0] = new Room(50, 50, sWidth - 50, sHeight - 100, false, false, false, true);
 			floor[0][1] = new Room(50, 50, sWidth - 50, sHeight - 100, false, true, true, false);
 			floor[1][1] = new Room(50, 50, sWidth - 50, sHeight - 100, true, false, true, false);
@@ -90,9 +94,10 @@ public class FloorManager {
 			floor[2][2] = new Room(50, 50, sWidth - 50, sHeight - 100, false, true, false, true);
 			floor[2][3] = new Room(50, 50, sWidth - 50, sHeight - 100, false, true, true, false);
 			floor[3][3] = new Room(50, 50, sWidth - 50, sHeight - 100, true, false, false, false);
+
+			floor[0][0].containing.add(new Enemy(200, 200, p));
 			
-			floor[0][0].containing.add(new Enemy(200,200));
-			floor[0][0].containing.add(new Enemy(300,200));
+			floor[0][0].containing.add(new Enemy(200, 400, p));
 		}
 
 	}
