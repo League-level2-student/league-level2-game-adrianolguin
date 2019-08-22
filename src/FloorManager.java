@@ -76,7 +76,7 @@ public class FloorManager {
 			floor[1][2] = new Room(50, 50, sWidth - 50, sHeight - 100, false, true, true, false);
 			floor[2][2] = new Room(50, 50, sWidth - 50, sHeight - 100, true, false, false, false);
 
-			floor[1][1].containing.add(new Enemy(300, 300, p));
+			
 
 		} else if (presetNum == 2) {
 
@@ -95,9 +95,7 @@ public class FloorManager {
 			floor[2][3] = new Room(50, 50, sWidth - 50, sHeight - 100, false, true, true, false);
 			floor[3][3] = new Room(50, 50, sWidth - 50, sHeight - 100, true, false, false, false);
 
-			floor[0][0].containing.add(new Enemy(200, 200, p));
 			
-			floor[0][0].containing.add(new Enemy(200, 400, p));
 		}
 
 	}

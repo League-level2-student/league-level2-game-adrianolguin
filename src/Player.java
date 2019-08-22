@@ -10,6 +10,8 @@ public class Player extends GameObject {
 	Rectangle collisionLine3;
 	Rectangle collisionLine4;
 
+	int yVelocity = 0;
+	
 	Player(int x, int y) {
 		super(x, y);
 
@@ -39,6 +41,9 @@ public class Player extends GameObject {
 
 		super.update();
 
+		yVelocity += Evolution.panel.gravity;
+		collisionBox.y += yVelocity;
+		
 		if (UP) {
 			collisionBox.y -= speed;
 		}
@@ -90,6 +95,10 @@ public class Player extends GameObject {
 		}
 	}
 
+	void jump() {
+		yVelocity = -20;
+	}
+	
 	void setX(int newx) {
 		x = newx;
 	}

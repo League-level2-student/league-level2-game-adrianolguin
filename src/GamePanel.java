@@ -22,6 +22,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	int currentRoomX;
 	int currentRoomY;
 
+	int gravity = 1;
+	
 	int sWidth = Evolution.width - 250;
 	int sHeight = Evolution.height;
 
@@ -30,6 +32,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	ObjectManager oManager;
 	FloorManager fManager;
 
+	
 	GamePanel() {
 
 		try {
@@ -91,6 +94,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		int keyPressed = e.getKeyCode();
 
 		player.manageDir(keyPressed, true);
+		
+		if(keyPressed == KeyEvent.VK_SPACE) {
+			player.jump();
+		}
 		
 		if (keyPressed == KeyEvent.VK_M) {
 			if (showMiniMap == false) {

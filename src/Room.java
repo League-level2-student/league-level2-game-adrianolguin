@@ -22,7 +22,7 @@ public class Room {
 	
 	Room(int x, int y, int width, int height, boolean door1, boolean door2, boolean door3, boolean door4) {
 
-		this.x = x;
+		this.x = x; 
 		this.y = y;
 		this.width = width;
 		this.height = height;
@@ -31,10 +31,10 @@ public class Room {
 		
 		walls = new Wall[4];
 
-		walls[0] = new Wall(x, y, wallWidth, height, door1);
+		walls[0] = new Wall(x - 500, y, wallWidth + 500, height, door1);
 		walls[1] = new Wall(x, y, width, wallWidth, door2);
-		walls[2] = new Wall(x + width - wallWidth, y, wallWidth, height, door3);
-		walls[3] = new Wall(x, y + height - wallWidth, width, wallWidth, door4);
+		walls[2] = new Wall(x + width - wallWidth, y, wallWidth + 500, height, door3);
+		walls[3] = new Wall(x, y + height - wallWidth, width, 500, door4);
 
 		
 		
