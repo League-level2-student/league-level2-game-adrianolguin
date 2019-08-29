@@ -19,10 +19,10 @@ public class ObjectManager implements ActionListener {
 	boolean open = true;
 	boolean close = false;
 
-	boolean touchNorthDoor;
-	boolean touchEastDoor;
-	boolean touchSouthDoor;
-	boolean touchWestDoor;
+	boolean nDoor;
+	boolean sDoor;
+	boolean wDoor;
+	boolean eDoor;
 
 	Timer iFrames;
 
@@ -47,8 +47,6 @@ public class ObjectManager implements ActionListener {
 
 	void draw(Graphics g) {
 
-		
-
 		turretTest.draw(g);
 
 		healthBar.draw(g);
@@ -60,117 +58,64 @@ public class ObjectManager implements ActionListener {
 	}
 
 	void update() {
-		
+
 		player.update();
 
-		currentRoom.updateContents();
+		// currentRoom.updateContents();
 
 	}
 
 	void checkAllCollisions() {
 		checkWallCollisions();
-		checkEnemyCollisions();
+
 	}
 
 	void checkEnemyCollisions() {
-
-		// for (int x = 0; x < currentRoom.containing.size(); x++) {
-		// if (currentRoom.containing.get(x).getClass() == Enemy.class) {
-		// checkEnemy((Enemy) currentRoom.containing.get(x));
-		// }
-		// }
 
 	}
 
 	void checkWallCollisions() {
 
-		for (int x = 0; x < 4; x++) {
-			if (currentRoom != null) {
-				checkWall(currentRoom.walls[x]);
-			}
+		if (player.x < currentRoom.walls[3].door.x + currentRoom.walls[3].doorSize
+				&& player.x + player.width > currentRoom.walls[3].door.x
+				&& player.y + player.width > currentRoom.walls[3].y) {
+			sDoor = true;
+		} else if (player.y + player.height > currentRoom.walls[3].y) {
+			player.setY(currentRoom.walls[3].y - player.height);
+			player.yVelocity = 0;
+		}
+		// -------------------------------------------------------------------------------
+		if (player.x < currentRoom.walls[1].door.x + currentRoom.walls[1].doorSize
+				&& player.x + player.width > currentRoom.walls[1].door.x
+				&& player.y < currentRoom.walls[1].y + currentRoom.wallWidth) {
+			nDoor = true;
+
+		} else if (player.y < currentRoom.walls[1].y + currentRoom.wallWidth) {
+			player.setY(currentRoom.walls[1].y + currentRoom.wallWidth);
+			player.yVelocity = 0;
+		}
+		// -------------------------------------------------------------------------------
+		if (player.y > currentRoom.walls[2].door.y
+				&& player.y < currentRoom.walls[2].door.y + currentRoom.walls[2].doorSize
+				&& player.x + player.width > currentRoom.walls[2].x) {
+			eDoor = true;
+		} else if (player.x + player.width > currentRoom.walls[2].x) {
+			player.x = currentRoom.walls[2].x - player.width;
+		}
+		// -------------------------------------------------------------------------------
+		if (player.y < currentRoom.walls[0].door.y + currentRoom.walls[0].doorSize
+				&& player.y + player.width > currentRoom.walls[0].door.y
+				&& player.x < currentRoom.walls[0].y + currentRoom.wallWidth) {
+			wDoor = true;
+		} else if (player.x < currentRoom.walls[0].x + currentRoom.wallWidth) {
+			player.x = currentRoom.walls[0].x + currentRoom.wallWidth;
 		}
 
 	}
 
 	void checkWall(Wall w) {
-//		if (player.getCollisionBox().intersects(w.collisionBox)) {
-//
-//			if (player.collisionLine1.intersects(w.door)) {
-//				touchWestDoor = true;
-//			} else if (player.collisionLine1.intersects(w.collisionBox)) {
-//				player.setX(player.getX() + player.getSpeed());
-//				player.setCBPos(player.getX(), player.getY());
-//			}
-//			if (player.collisionLine2.intersects(w.door)) {
-//				touchNorthDoor = true;
-//			} else if (player.collisionLine2.intersects(w.collisionBox)) {
-//				player.setY(w.y + w.height);
-//				player.yVelocity = 0;
-//			}
-//			if (player.collisionLine3.intersects(w.door)) {
-//				touchEastDoor = true;
-//			} else if (player.collisionLine3.intersects(w.collisionBox)) {
-//				player.setX(player.getX() - player.getSpeed());
-//				player.setCBPos(player.getX(), player.getY());
-//			}
-//			if (player.collisionLine4.intersects(w.door)) {
-//				touchSouthDoor = true;
-//			} else if (player.collisionLine4.intersects(w.collisionBox)) {
-//				player.setY(w.y - player.health);
-//				player.setCBPos(player.getX(), player.getY());
-//				player.yVelocity = 0;
-//			}
-//
-//		}
-		
-		if(player.y > currentRoom.walls[3].y) {
-			player.y = currentRoom.walls[3].y - player.height;
-			player.yVelocity = 0;
-		}
-		
-	}
 
-	// void checkEnemy(Enemy e) {
-	// if (player.invincible) {
-	//
-	// } else {
-	// if (player.getCollisionBox().intersects(e.getCollisionBox())) {
-	// player.health--;
-	// player.invincible = true;
-	// healthBar.currentHealth = player.health;
-	// iFrames.start();
-	// System.out.println(player.health);
-	// }
-	// }
-	//
-	// for (int i = 0; i < currentRoom.containing.size(); i++) {
-	// if (e != currentRoom.containing.get(i)) {
-	// if (e.collisionLine1.intersects(currentRoom.containing.get(i).collisionBox))
-	// {
-	// e.collisionBox.x += e.width + e.collisionLine1.width;
-	// e.canLeft = false;
-	// }
-	//
-	// if (e.collisionLine2.intersects(currentRoom.containing.get(i).collisionBox))
-	// {
-	// e.collisionBox.y -= e.speed + e.collisionLine2.height;
-	// e.canUp = false;
-	// }
-	//
-	// if (e.collisionLine3.intersects(currentRoom.containing.get(i).collisionBox))
-	// {
-	// e.collisionBox.x += e.speed + e.collisionLine3.width;
-	// e.canRight = false;
-	// }
-	//
-	// if (e.collisionLine4.intersects(currentRoom.containing.get(i).collisionBox))
-	// {
-	// e.collisionBox.y -= e.speed + e.collisionLine3.height;
-	// e.canDown = false;
-	// }
-	// }
-	// }
-	// }
+	}
 
 	void changeCurrentRoom(Room r) {
 		currentRoom = r;

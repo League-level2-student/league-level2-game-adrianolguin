@@ -16,14 +16,16 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public static BufferedImage heartImg;
 	public static BufferedImage brokenHeartImg;
 	public static BufferedImage damagedHeartImg;
-	
+
 	boolean showMiniMap = true;
+
+	boolean doorAccept = false;;
 
 	int currentRoomX;
 	int currentRoomY;
 
 	int gravity = 1;
-	
+
 	int sWidth = Evolution.width - 250;
 	int sHeight = Evolution.height;
 
@@ -32,7 +34,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	ObjectManager oManager;
 	FloorManager fManager;
 
-	
 	GamePanel() {
 
 		try {
@@ -85,7 +86,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 		oManager.draw(g);
 
-		
 	}
 
 	@Override
@@ -94,11 +94,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		int keyPressed = e.getKeyCode();
 
 		player.manageDir(keyPressed, true);
-		
-		if(keyPressed == KeyEvent.VK_SPACE) {
+
+		if (keyPressed == KeyEvent.VK_SPACE) {
 			player.jump();
 		}
-		
+
+		if (keyPressed == KeyEvent.VK_DOWN) {
+			doorAccept = true;
+		}
+
 		if (keyPressed == KeyEvent.VK_M) {
 			if (showMiniMap == false) {
 				showMiniMap = true;
@@ -111,7 +115,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			System.out.println(currentRoomX + ", " + currentRoomY);
 		}
 
-		if(keyPressed == KeyEvent.VK_0) {
+		if (keyPressed == KeyEvent.VK_0) {
 			player.health++;
 			oManager.healthBar.currentHealth = player.health;
 		}
@@ -138,31 +142,47 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	void manageDoors() {
-		if (oManager.touchNorthDoor) {
-			oManager.touchNorthDoor = false;
+
+		if (doorAccept) {
+			if (oManager.sDoor) {
+
+				oManager.sDoor = false;
+				currentRoomY++;
+				oManager.changeCurrentRoom(fManager.getRoom(currentRoomX, currentRoomY));
+				player.setPos(fManager.getRoom(currentRoomX, currentRoomY).walls[1].door.x,
+						fManager.getRoom(currentRoomX, currentRoomY).walls[1].door.y
+								+ fManager.getRoom(currentRoomX, currentRoomY).wallWidth);
+				player.yVelocity = 0;
+
+			}
+		} else if (oManager.nDoor) {
+
+			oManager.nDoor = false;
 			currentRoomY--;
-			fManager.pY--;
-			oManager.changeCurrentRoom(fManager.floor[currentRoomX][currentRoomY]);
-			player.setCBPos(oManager.currentRoom.walls[3].door.x, oManager.currentRoom.walls[3].door.y - player.height);
-		} else if (oManager.touchEastDoor) {
-			oManager.touchEastDoor = false;
-			currentRoomX++;
-			fManager.pX++;
-			oManager.changeCurrentRoom(fManager.floor[currentRoomX][currentRoomY]);
-			player.setCBPos(oManager.currentRoom.walls[0].door.x + player.height, oManager.currentRoom.walls[0].door.y);
-		} else if (oManager.touchSouthDoor) {
-			oManager.touchSouthDoor = false;
-			currentRoomY++;
-			fManager.pY++;
-			oManager.changeCurrentRoom(fManager.floor[currentRoomX][currentRoomY]);
-			player.setCBPos(oManager.currentRoom.walls[1].door.x, oManager.currentRoom.walls[1].door.y + player.height);
-		} else if (oManager.touchWestDoor) {
-			oManager.touchWestDoor = false;
+			oManager.changeCurrentRoom(fManager.getRoom(currentRoomX, currentRoomY));
+
+			player.setPos(fManager.getRoom(currentRoomX, currentRoomY).walls[3].door.x,
+					fManager.getRoom(currentRoomX, currentRoomY).walls[3].door.y
+							- fManager.getRoom(currentRoomX, currentRoomY).wallWidth);
+			player.yVelocity = 0;
+
+		} else if (oManager.wDoor) {
+
+			oManager.wDoor = false;
 			currentRoomX--;
-			fManager.pX--;
-			oManager.changeCurrentRoom(fManager.floor[currentRoomX][currentRoomY]);
-			player.setCBPos(oManager.currentRoom.walls[2].door.x - player.height, oManager.currentRoom.walls[2].door.y);
+			oManager.changeCurrentRoom(fManager.getRoom(currentRoomX, currentRoomY));
+
+		} else if (oManager.eDoor) {
+
+			oManager.eDoor = false;
+			currentRoomX++;
+			oManager.changeCurrentRoom(fManager.getRoom(currentRoomX, currentRoomY));
+
 		}
+
+		fManager.pX = currentRoomX;
+		fManager.pY = currentRoomY;
+
 	}
 
 }

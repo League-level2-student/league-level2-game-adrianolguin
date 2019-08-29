@@ -99,5 +99,9 @@ public class FloorManager {
 		}
 
 	}
+	
+	Room getRoom(int x, int y) {
+		return floor[x][y];
+	}
 
 }
