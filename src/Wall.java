@@ -6,13 +6,15 @@ public class Wall extends GameObject {
 
 	Rectangle door;
 
-	int doorSize = 20;
+	int doorSize;
 
 	boolean hasDoor;
 
-	Wall(int x, int y, int width, int height, boolean hasDoor) {
+	Wall(int x, int y, int width, int height, boolean hasDoor, int doorDistance, int doorSize) {
 		super(x, y);
 
+		
+		this.doorSize = doorSize;
 		this.width = width;
 		this.height = height;
 
@@ -20,17 +22,13 @@ public class Wall extends GameObject {
 
 		if (hasDoor) {
 			if (height > width) {
-				if (height % 2 == 0) {
-					door = new Rectangle(x, y + (height / 2 - doorSize / 2), width, doorSize);
-				} else {
-					door = new Rectangle(x, y + (height + 1) / 2 - ((doorSize / 2) + 1), width, doorSize + 1);
-				}
+
+				door = new Rectangle(x, y + doorDistance, width, doorSize);
+
 			} else {
-				if (width % 2 == 0) {
-					door = new Rectangle(x + (width / 2 - doorSize / 2), y, doorSize, height);
-				} else {
-					door = new Rectangle(x + (width + 1) / 2 - ((doorSize / 2) + 1), y, doorSize, height);
-				}
+
+				door = new Rectangle(x + doorDistance, y, doorSize, height);
+
 			}
 			door.setBounds(door);
 
@@ -50,7 +48,6 @@ public class Wall extends GameObject {
 		g.setColor(Color.green);
 		g.fillRect(door.x, door.y, door.width, door.height);
 
-		
 	}
 
 	void doorSize(int num) {

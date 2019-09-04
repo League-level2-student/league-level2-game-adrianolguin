@@ -26,8 +26,6 @@ public class ObjectManager implements ActionListener {
 
 	Timer iFrames;
 
-	Turret turretTest;
-
 	Player player;
 
 	Room currentRoom;
@@ -35,8 +33,6 @@ public class ObjectManager implements ActionListener {
 	Health healthBar;
 
 	ObjectManager(Player player) {
-
-		turretTest = new Turret(200, 200);
 
 		this.player = player;
 
@@ -46,8 +42,6 @@ public class ObjectManager implements ActionListener {
 	}
 
 	void draw(Graphics g) {
-
-		turretTest.draw(g);
 
 		healthBar.draw(g);
 
@@ -80,7 +74,9 @@ public class ObjectManager implements ActionListener {
 				&& player.x + player.width > currentRoom.walls[3].door.x
 				&& player.y + player.width > currentRoom.walls[3].y) {
 			sDoor = true;
-		} else if (player.y + player.height > currentRoom.walls[3].y) {
+		}
+
+		if (player.y + player.height > currentRoom.walls[3].y) {
 			player.setY(currentRoom.walls[3].y - player.height);
 			player.yVelocity = 0;
 		}

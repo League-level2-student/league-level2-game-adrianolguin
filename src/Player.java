@@ -7,6 +7,10 @@ public class Player extends GameObject {
 
 	int yVelocity = 0;
 
+	int xVelocity = 0;
+	
+	
+	
 	Player(int x, int y) {
 		super(x, y);
 
@@ -29,17 +33,23 @@ public class Player extends GameObject {
 		yVelocity += Evolution.panel.gravity;
 		y += yVelocity;
 
+		x += xVelocity;
+		
+		if(!LEFT || !RIGHT) {
+			xVelocity = 0;
+		}
+		
 		if (UP) {
 			y -= speed;
 		}
-		if (DOWN) {
-			y += speed;
-		}
+//		if (DOWN) {
+//			y += speed;
+//		}
 		if (LEFT) {
-			x -= speed;
+			xVelocity = -speed;
 		}
 		if (RIGHT) {
-			x += speed;
+			xVelocity = speed;
 		}
 
 

@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class GamePanel extends JPanel implements ActionListener, KeyListener {
-
+	Player player;
 	public static BufferedImage heartImg;
 	public static BufferedImage brokenHeartImg;
 	public static BufferedImage damagedHeartImg;
@@ -30,11 +30,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	int sHeight = Evolution.height;
 
 	Timer timer;
-	Player player;
+
 	ObjectManager oManager;
 	FloorManager fManager;
 
 	GamePanel() {
+
+		player = new Player(200, 100);
 
 		try {
 			heartImg = ImageIO.read(this.getClass().getResourceAsStream("Heart.png"));
@@ -46,7 +48,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		}
 
 		timer = new Timer(1000 / 60, this);
-		player = new Player(200, 100);
 
 		oManager = new ObjectManager(player);
 		fManager = new FloorManager(2, player);
@@ -128,6 +129,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		int keyPressed = e.getKeyCode();
 		player.manageDir(keyPressed, false);
 
+		if (keyPressed == KeyEvent.VK_DOWN) {
+			doorAccept = false;
+		}
+
 	}
 
 	@Override
@@ -143,18 +148,16 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	void manageDoors() {
 
-		if (doorAccept) {
-			if (oManager.sDoor) {
+		if (oManager.sDoor && doorAccept) {
 
-				oManager.sDoor = false;
-				currentRoomY++;
-				oManager.changeCurrentRoom(fManager.getRoom(currentRoomX, currentRoomY));
-				player.setPos(fManager.getRoom(currentRoomX, currentRoomY).walls[1].door.x,
-						fManager.getRoom(currentRoomX, currentRoomY).walls[1].door.y
-								+ fManager.getRoom(currentRoomX, currentRoomY).wallWidth);
-				player.yVelocity = 0;
+			oManager.sDoor = false;
+			currentRoomY++;
+			oManager.changeCurrentRoom(fManager.getRoom(currentRoomX, currentRoomY));
+			player.setPos(fManager.getRoom(currentRoomX, currentRoomY).walls[1].door.x,
+					fManager.getRoom(currentRoomX, currentRoomY).walls[1].door.y
+							+ fManager.getRoom(currentRoomX, currentRoomY).wallWidth);
+			player.yVelocity = 0;
 
-			}
 		} else if (oManager.nDoor) {
 
 			oManager.nDoor = false;
@@ -172,12 +175,24 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			currentRoomX--;
 			oManager.changeCurrentRoom(fManager.getRoom(currentRoomX, currentRoomY));
 
+			player.setPos(fManager.getRoom(currentRoomX, currentRoomY).walls[2].door.x - player.width,
+					fManager.getRoom(currentRoomX, currentRoomY).walls[2].door.y
+							+ fManager.getRoom(currentRoomX, currentRoomY).doorSize - player.height);
+
+			player.xVelocity = 0;
+
 		} else if (oManager.eDoor) {
 
 			oManager.eDoor = false;
 			currentRoomX++;
 			oManager.changeCurrentRoom(fManager.getRoom(currentRoomX, currentRoomY));
 
+			player.setPos(
+					fManager.getRoom(currentRoomX, currentRoomY).walls[0].door.x
+							+ fManager.getRoom(currentRoomX, currentRoomY).wallWidth,
+					fManager.getRoom(currentRoomX, currentRoomY).walls[2].door.y
+							+ fManager.getRoom(currentRoomX, currentRoomY).doorSize - player.height);
+			player.xVelocity = 0;
 		}
 
 		fManager.pX = currentRoomX;
