@@ -8,9 +8,7 @@ public class Player extends GameObject {
 	int yVelocity = 0;
 
 	int xVelocity = 0;
-	
-	
-	
+
 	Player(int x, int y) {
 		super(x, y);
 
@@ -34,24 +32,26 @@ public class Player extends GameObject {
 		y += yVelocity;
 
 		x += xVelocity;
-		
-		if(!LEFT || !RIGHT) {
+
+		collisionBox.x = x;
+		collisionBox.y = y;
+
+		if (!LEFT || !RIGHT) {
 			xVelocity = 0;
 		}
-		
+
 		if (UP) {
 			y -= speed;
 		}
-//		if (DOWN) {
-//			y += speed;
-//		}
+		// if (DOWN) {
+		// y += speed;
+		// }
 		if (LEFT) {
 			xVelocity = -speed;
 		}
 		if (RIGHT) {
 			xVelocity = speed;
 		}
-
 
 	}
 

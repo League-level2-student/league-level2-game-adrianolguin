@@ -107,6 +107,20 @@ public class ObjectManager implements ActionListener {
 			player.x = currentRoom.walls[0].x + currentRoom.wallWidth;
 		}
 
+		for (int x = 0; x < currentRoom.insideWalls.size(); x++) {
+
+			int insideWallY = currentRoom.insideWalls.get(x).y;
+			int insideWallX = currentRoom.insideWalls.get(x).x;
+			int insideWallWidth = currentRoom.insideWalls.get(x).width;
+			int insideWallHeight = currentRoom.insideWalls.get(x).height;
+
+			if (player.y + player.height > currentRoom.insideWalls.get(x).y && player.x > insideWallX
+					&& player.x + player.width < insideWallX + insideWallWidth) {
+				player.setY(insideWallHeight - player.height);
+				player.yVelocity = 0;
+			}
+
+		}
 	}
 
 	void checkWall(Wall w) {

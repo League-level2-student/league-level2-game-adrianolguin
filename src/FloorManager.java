@@ -95,6 +95,7 @@ public class FloorManager {
 			floor[2][3] = new Room(50, 50, sWidth - 50, sHeight - 100, false, true, true, false);
 			floor[3][3] = new Room(50, 50, sWidth - 50, sHeight - 100, true, false, false, false);
 
+			floor[0][0].insideWalls.add(new Wall(300,200,200,200, false, 0, 0));
 			
 		}
 

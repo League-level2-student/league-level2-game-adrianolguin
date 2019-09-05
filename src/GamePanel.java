@@ -190,7 +190,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			player.setPos(
 					fManager.getRoom(currentRoomX, currentRoomY).walls[0].door.x
 							+ fManager.getRoom(currentRoomX, currentRoomY).wallWidth,
-					fManager.getRoom(currentRoomX, currentRoomY).walls[2].door.y
+					fManager.getRoom(currentRoomX, currentRoomY).walls[0].door.y
 							+ fManager.getRoom(currentRoomX, currentRoomY).doorSize - player.height);
 			player.xVelocity = 0;
 		}
