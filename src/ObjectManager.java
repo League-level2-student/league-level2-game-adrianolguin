@@ -10,6 +10,8 @@ import javax.swing.Timer;
 
 public class ObjectManager implements ActionListener {
 
+	
+	
 	int healthBuffer1;
 	int healthBuffer2;
 
@@ -78,6 +80,7 @@ public class ObjectManager implements ActionListener {
 
 		if (player.y + player.height > currentRoom.walls[3].y) {
 			player.setY(currentRoom.walls[3].y - player.height);
+			player.airborn = false;
 			player.yVelocity = 0;
 		}
 		// -------------------------------------------------------------------------------
@@ -114,13 +117,39 @@ public class ObjectManager implements ActionListener {
 			int insideWallWidth = currentRoom.insideWalls.get(x).width;
 			int insideWallHeight = currentRoom.insideWalls.get(x).height;
 
-			if (player.y + player.height > currentRoom.insideWalls.get(x).y && player.x > insideWallX
-					&& player.x + player.width < insideWallX + insideWallWidth) {
-				player.setY(insideWallHeight - player.height);
-				player.yVelocity = 0;
+			if (player.y < insideWallY + 20) {
+				if (player.y + player.height > currentRoom.insideWalls.get(x).y && player.x + player.width > insideWallX
+						&& player.x < insideWallX + insideWallWidth) {
+					player.setY(insideWallY - player.height);
+					player.airborn = false;
+					player.yVelocity = 0;
+				}
+			}
+			if (player.x < insideWallX + 20) {
+				if (player.x + player.width > insideWallX && player.y < insideWallY + insideWallHeight
+						&& player.y + player.height > insideWallY) {
+					player.setX(insideWallX - player.width);
+					player.xVelocity = 0;
+				}
+			}
+
+			if (player.y > insideWallY + insideWallHeight - 20) {
+				if (player.y < insideWallY + insideWallHeight && player.x + player.width > insideWallX
+						&& player.x < insideWallX + insideWallWidth) {
+					player.setY(insideWallY + insideWallHeight);
+					player.yVelocity = 0;
+				}
+			}
+
+			if (player.x > insideWallX + insideWallWidth - 20) {
+				if (player.x < insideWallX + insideWallWidth && player.y < insideWallY + insideWallHeight
+						&& player.y + player.height > insideWallY) {
+					player.setX(insideWallX + insideWallWidth);
+				}
 			}
 
 		}
+
 	}
 
 	void checkWall(Wall w) {

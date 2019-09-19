@@ -5,6 +5,8 @@ import java.awt.event.KeyEvent;
 
 public class Player extends GameObject {
 
+	boolean airborn;
+
 	int yVelocity = 0;
 
 	int xVelocity = 0;
@@ -70,7 +72,12 @@ public class Player extends GameObject {
 	}
 
 	void jump() {
-		yVelocity = -20;
+		if (!airborn) {
+			yVelocity = -15;
+			airborn = true;
+		} else {
+		}
+
 	}
 
 	void setX(int newx) {

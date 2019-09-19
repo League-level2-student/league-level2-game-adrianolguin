@@ -23,9 +23,8 @@ public class Room {
 	int[] test;
 
 	ArrayList<Wall> insideWalls;
+	ArrayList<Laser> lasers;
 	
-	//ArrayList<GameObject> containing;
-
 	Room(int x, int y, int width, int height, boolean door1, boolean door2, boolean door3, boolean door4) {
 
 		test = new int[3];
@@ -36,8 +35,8 @@ public class Room {
 		this.height = height;
 
 		insideWalls = new ArrayList<Wall>();
-		
-//		containing = new ArrayList<GameObject>();
+
+		lasers = new ArrayList<Laser>();
 
 		walls = new Wall[4];
 
@@ -51,25 +50,25 @@ public class Room {
 
 	void draw(Graphics g) {
 
-//		for (int x = 0; x < containing.size(); x++) {
-//			containing.get(x).draw(g);
-//		}
-
-		for(int x = 0; x < insideWalls.size(); x++) {
-			insideWalls.get(x).draw(g);
-		}
-		
 		for (int x = 0; x < 4; x++) {
 			walls[x].draw(g);
+		}
+		
+		for (int x = 0; x < insideWalls.size(); x++) {
+			insideWalls.get(x).draw(g);
+		}
+
+		for(int x = 0; x < lasers.size(); x++) {
+			lasers.get(x).draw(g);
 		}
 
 	}
 
 	void updateContents() {
-//
-//		for (int x = 0; x < containing.size(); x++) {
-//			containing.get(x).update();
-//		}
+		//
+		// for (int x = 0; x < containing.size(); x++) {
+		// containing.get(x).update();
+		// }
 
 	}
 

@@ -6,6 +6,8 @@ public class FloorManager {
 	int sWidth = Evolution.width - 250;
 	int sHeight = Evolution.height;
 
+	int impassable = 40;
+
 	Room[][] floor;
 	int floorCols;
 	int floorRows;
@@ -76,8 +78,6 @@ public class FloorManager {
 			floor[1][2] = new Room(50, 50, sWidth - 50, sHeight - 100, false, true, true, false);
 			floor[2][2] = new Room(50, 50, sWidth - 50, sHeight - 100, true, false, false, false);
 
-			
-
 		} else if (presetNum == 2) {
 
 			floorCols = 4;
@@ -94,13 +94,15 @@ public class FloorManager {
 			floor[2][2] = new Room(50, 50, sWidth - 50, sHeight - 100, false, true, false, true);
 			floor[2][3] = new Room(50, 50, sWidth - 50, sHeight - 100, false, true, true, false);
 			floor[3][3] = new Room(50, 50, sWidth - 50, sHeight - 100, true, false, false, false);
-
-			floor[0][0].insideWalls.add(new Wall(300,200,200,200, false, 0, 0));
+			
+			floor[0][0].lasers.add(new Laser(200,200,false));
+			
+			
 			
 		}
 
 	}
-	
+
 	Room getRoom(int x, int y) {
 		return floor[x][y];
 	}

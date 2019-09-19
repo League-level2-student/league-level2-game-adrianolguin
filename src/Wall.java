@@ -13,7 +13,6 @@ public class Wall extends GameObject {
 	Wall(int x, int y, int width, int height, boolean hasDoor, int doorDistance, int doorSize) {
 		super(x, y);
 
-		
 		this.doorSize = doorSize;
 		this.width = width;
 		this.height = height;
@@ -35,19 +34,23 @@ public class Wall extends GameObject {
 		} else {
 			door = new Rectangle(0, 0, 0, 0);
 		}
-
+		
 		collisionBox = new Rectangle(x, y, width, height);
 		collisionBox.setBounds(collisionBox);
 
 	}
 
 	void draw(Graphics g) {
+		
+		
 		g.setColor(Color.white);
 		g.fillRect(x, y, width, height);
 
 		g.setColor(Color.green);
 		g.fillRect(door.x, door.y, door.width, door.height);
-
+		
+		
+		
 	}
 
 	void doorSize(int num) {
