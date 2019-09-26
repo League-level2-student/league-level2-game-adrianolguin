@@ -81,4 +81,9 @@ public class Health {
 		}
 
 	}
+	
+	void changeCurrentHealth(int newHealth) {
+		currentHealth = newHealth;
+	}
+	
 }

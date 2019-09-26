@@ -10,8 +10,6 @@ import javax.swing.Timer;
 
 public class ObjectManager implements ActionListener {
 
-	
-	
 	int healthBuffer1;
 	int healthBuffer2;
 
@@ -50,6 +48,7 @@ public class ObjectManager implements ActionListener {
 		if (currentRoom != null) {
 			currentRoom.draw(g);
 		}
+		
 		player.draw(g);
 	}
 
@@ -57,16 +56,23 @@ public class ObjectManager implements ActionListener {
 
 		player.update();
 
-		// currentRoom.updateContents();
+//		currentRoom.updateContents();
 
 	}
 
 	void checkAllCollisions() {
 		checkWallCollisions();
+		checkHazardCollisions();
 
 	}
 
-	void checkEnemyCollisions() {
+	void checkHazardCollisions() {
+
+		for (int i = 0; i < currentRoom.lasers.size(); i++) {
+			if (player.collisionBox.intersects(currentRoom.lasers.get(i).laserHitbox)) {
+				player.takeDamage();
+			}
+		}
 
 	}
 

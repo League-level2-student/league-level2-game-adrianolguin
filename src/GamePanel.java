@@ -36,7 +36,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	GamePanel() {
 
-		player = new Player(200, 100);
+		player = new Player(0, 0);
 
 		try {
 			heartImg = ImageIO.read(this.getClass().getResourceAsStream("Heart.png"));
@@ -50,10 +50,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		timer = new Timer(1000 / 60, this);
 
 		oManager = new ObjectManager(player);
-		fManager = new FloorManager(2, player);
-		currentRoomX = 0;
-		currentRoomY = 0;
+		fManager = new FloorManager(3, player);
+		currentRoomX = fManager.spawnFloorX;
+		currentRoomY = fManager.spawnFloorY;
 		oManager.changeCurrentRoom(fManager.floor[currentRoomX][currentRoomY]);
+		player.setPos(fManager.spawnX, fManager.spawnY);
 
 	}
 

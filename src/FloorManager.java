@@ -3,6 +3,11 @@ import java.awt.Graphics;
 
 public class FloorManager {
 
+	int spawnFloorX;
+	int spawnFloorY;
+	int spawnX;
+	int spawnY;
+
 	int sWidth = Evolution.width - 250;
 	int sHeight = Evolution.height;
 
@@ -67,6 +72,8 @@ public class FloorManager {
 
 			floorCols = 3;
 			floorRows = 3;
+			spawnX = 0;
+			spawnY = 0;
 			floor = new Room[floorCols][floorRows];
 
 			miniMapRWidth = miniMapWidth / floorCols;
@@ -82,6 +89,8 @@ public class FloorManager {
 
 			floorCols = 4;
 			floorRows = 4;
+			spawnX = 0;
+			spawnY = 0;
 			floor = new Room[floorCols][floorRows];
 
 			miniMapRWidth = miniMapWidth / floorCols;
@@ -94,10 +103,28 @@ public class FloorManager {
 			floor[2][2] = new Room(50, 50, sWidth - 50, sHeight - 100, false, true, false, true);
 			floor[2][3] = new Room(50, 50, sWidth - 50, sHeight - 100, false, true, true, false);
 			floor[3][3] = new Room(50, 50, sWidth - 50, sHeight - 100, true, false, false, false);
-			
-			floor[0][0].lasers.add(new Laser(200,200,false));
-			
-			
+
+			floor[0][0].lasers.add(new Laser(200, 200, false, 400));
+
+		} else if (presetNum == 3) {
+			floorCols = 2;
+			floorRows = 2;
+			floor = new Room[floorCols][floorRows];
+			spawnFloorX = 1;
+			spawnFloorY = 0;
+
+			miniMapRWidth = miniMapWidth / floorCols;
+			miniMapRHeight = miniMapHeight / floorRows;
+
+			floor[0][0] = new Room(50, 50, sWidth - 50, sHeight - 100, false, false, true, true);
+			floor[1][0] = new Room(50, 50, sWidth - 50, sHeight - 100, true, false, false, false);
+			floor[1][1] = new Room(50, 50, sWidth - 50, sHeight - 100, true, false, false, false);
+			floor[0][1] = new Room(50, 50, sWidth - 50, sHeight - 100, false, true, true, false);
+
+			spawnX = floor[spawnFloorX][spawnFloorY].walls[2].x - p.width - 20;
+			spawnY = floor[spawnFloorX][spawnFloorY].walls[3].y - p.height;
+
+			floor[1][0].insideWalls.add(new Wall(spawnX - 150, spawnY + p.height - 200, 50, 200, false, 0, 0));	
 			
 		}
 

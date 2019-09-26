@@ -8,21 +8,30 @@ import javax.swing.Timer;
 
 public class Laser extends GameObject implements ActionListener {
 
+	boolean UP = true;
+	boolean DOWN = false;
+
 	Timer shootingDelay;
 
 	Rectangle laserHitbox;
 
 	boolean shooting;
 
-	Laser(int x, int y, boolean dir) {
+	boolean dir;
+
+	int laserLength;
+
+	Laser(int x, int y, boolean dir, int laserLength) {
 		super(x, y);
+		this.dir = dir;
+		this.laserLength = laserLength;
 
 		laserHitbox = new Rectangle(0, 0, 0, 0);
 
 		width = 25;
 		height = 25;
 
-		shootingDelay = new Timer(5000, this);
+		shootingDelay = new Timer(1000, this);
 		shootingDelay.start();
 	}
 
@@ -30,15 +39,23 @@ public class Laser extends GameObject implements ActionListener {
 
 		g.setColor(Color.YELLOW);
 		g.fillRect(x, y, width, height);
-		g.fillRect(x + width / 4, y - 5, width / 2, height);
-
+		if (dir == UP) {
+			g.fillRect(x + width / 4, y - 5, width / 2, height);
+		} else if (dir == DOWN) {
+			g.fillRect(x + width / 4, y + height, width / 2, 5);
+		}
 		g.setColor(Color.red);
 		g.fillRect(laserHitbox.x, laserHitbox.y, laserHitbox.width, laserHitbox.height);
 
 	}
 
 	void shoot() {
-		laserHitbox = new Rectangle(x + width / 4, y - 5, width/2, 200);
+
+		if (dir == UP) {
+			laserHitbox = new Rectangle(x + width / 4, y - 5 - laserLength, width / 2, laserLength);
+		} else if (dir == DOWN) {
+			laserHitbox = new Rectangle(x + width / 4, y + height + 5, width / 2, laserLength);
+		}
 	}
 
 	void stopShooting() {

@@ -142,6 +142,15 @@ public class Player extends GameObject {
 		}
 	}
 
+	void takeDamage() {
+		if (!invincible) {
+			invincible = true;
+			Evolution.panel.oManager.iFrames.start();
+			health--;
+			Evolution.panel.oManager.healthBar.currentHealth = health;
+		}
+	}
+
 	public int getSpeed() {
 		return speed;
 	}
