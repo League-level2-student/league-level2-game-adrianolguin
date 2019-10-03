@@ -5,7 +5,9 @@ import java.awt.event.KeyEvent;
 
 public class Player extends GameObject {
 
+	boolean boostAble;
 	boolean airborn;
+	int boost = 1;
 
 	int yVelocity = 0;
 
@@ -49,10 +51,10 @@ public class Player extends GameObject {
 		// y += speed;
 		// }
 		if (LEFT) {
-			xVelocity = -speed;
+			xVelocity = -speed * boost;
 		}
 		if (RIGHT) {
-			xVelocity = speed;
+			xVelocity = speed * boost;
 		}
 
 	}
@@ -65,6 +67,9 @@ public class Player extends GameObject {
 		if (invincible) {
 			g.setColor(Color.pink);
 			g.fillRect(getCBX(), getCBY(), width, height);
+		} else if (boost == 2) {
+			g.setColor(Color.yellow);
+			g.fillRect(x, y, width, height);
 		} else {
 			g.setColor(Color.blue);
 			g.fillRect(x, y, width, height);

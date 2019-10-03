@@ -30,7 +30,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	int sHeight = Evolution.height;
 
 	Timer timer;
-
+	Timer boostBuffer;
+	
 	ObjectManager oManager;
 	FloorManager fManager;
 
@@ -47,6 +48,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			e.printStackTrace();
 		}
 
+		boostBuffer = new Timer(250, this);
 		timer = new Timer(1000 / 60, this);
 
 		oManager = new ObjectManager(player);
@@ -64,8 +66,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-
+	
+		if(arg0.getSource() == boostBuffer){
+			player.boost = 1;
+			boostBuffer.stop();
+		}
+		
 		manageDoors();
 
 		oManager.update();
@@ -99,6 +105,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 		if (keyPressed == KeyEvent.VK_SPACE) {
 			player.jump();
+		}
+		if (keyPressed == KeyEvent.VK_SHIFT && player.boostAble) {
+			if(player.airborn) {
+				player.boostAble = false;
+			}
+			player.boost = 2;
+			boostBuffer.start();
 		}
 
 		if (keyPressed == KeyEvent.VK_DOWN) {

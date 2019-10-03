@@ -89,8 +89,8 @@ public class FloorManager {
 
 			floorCols = 4;
 			floorRows = 4;
-			spawnX = 0;
-			spawnY = 0;
+			spawnX = 500;
+			spawnY = 500;
 			floor = new Room[floorCols][floorRows];
 
 			miniMapRWidth = miniMapWidth / floorCols;
@@ -110,7 +110,7 @@ public class FloorManager {
 			floorCols = 2;
 			floorRows = 2;
 			floor = new Room[floorCols][floorRows];
-			spawnFloorX = 1;
+			spawnFloorX = 0;
 			spawnFloorY = 0;
 
 			miniMapRWidth = miniMapWidth / floorCols;
@@ -123,9 +123,33 @@ public class FloorManager {
 
 			spawnX = floor[spawnFloorX][spawnFloorY].walls[2].x - p.width - 20;
 			spawnY = floor[spawnFloorX][spawnFloorY].walls[3].y - p.height;
+			////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-			floor[1][0].insideWalls.add(new Wall(spawnX - 150, spawnY + p.height - 200, 50, 200, false, 0, 0));	
-			
+			floor[1][0].insideWalls.add(new Wall(spawnX - 200, spawnY + p.height - 100, 35, 75, false, 0, 0));
+			floor[1][0].insideWalls.add(new Wall(spawnX - 300, spawnY + p.height - 200, 35, 175, false, 0, 0));
+			floor[1][0].insideWalls.add(new Wall(spawnX - 400, spawnY + p.height - 300, 35, 300, false, 0, 0));
+			floor[1][0].insideWalls.add(new Wall(125, spawnY + p.height - 300, 375, 35, false, 0, 0));
+			floor[1][0].insideWalls.add(new Wall(50, spawnY + p.height - 200, 375, 35, false, 0, 0));
+			floor[1][0].insideWalls.add(new Wall(125, spawnY + p.height - 100, 375, 35, false, 0, 0));
+
+			////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+			floor[0][0].insideWalls.add(new Wall(spawnX - 200, spawnY + p.height - 250, 35, 250, false, 0, 0));
+			floor[0][0].insideWalls.add(new Wall(spawnX - 175, spawnY + p.height - 100, 85, 30, false, 0, 0));
+			floor[0][0].insideWalls.add(new Wall(spawnX - 45, spawnY + p.height - 220, 85, 30, false, 0, 0));
+
+			floor[0][0].insideWalls.add(new Wall(spawnX - 430, spawnY + p.height - 250, 35, 250, false, 0, 0));
+
+			floor[0][0].insideWalls.add(new Wall(spawnX - 545, spawnY + p.height - 500, 35, 250, false, 0, 0));
+
+			floor[0][0].insideWalls.add(new Wall(spawnX - 660, spawnY + p.height - 250, 35, 250, false, 0, 0));
+
+			////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+			////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+			////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 		}
 
 	}

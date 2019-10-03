@@ -87,6 +87,7 @@ public class ObjectManager implements ActionListener {
 		if (player.y + player.height > currentRoom.walls[3].y) {
 			player.setY(currentRoom.walls[3].y - player.height);
 			player.airborn = false;
+			player.boostAble = true;
 			player.yVelocity = 0;
 		}
 		// -------------------------------------------------------------------------------
@@ -128,6 +129,7 @@ public class ObjectManager implements ActionListener {
 						&& player.x < insideWallX + insideWallWidth) {
 					player.setY(insideWallY - player.height);
 					player.airborn = false;
+					player.boostAble = true;
 					player.yVelocity = 0;
 				}
 			}
