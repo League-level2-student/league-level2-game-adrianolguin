@@ -21,8 +21,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	boolean doorAccept = false;;
 
+	int boostRuntime = 0;
+	boolean playerBoost;
+
 	int currentRoomX;
 	int currentRoomY;
+
+	int playerDir;
 
 	int gravity = 1;
 
@@ -31,7 +36,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	Timer timer;
 	Timer boostBuffer;
-	
+
 	ObjectManager oManager;
 	FloorManager fManager;
 
@@ -48,7 +53,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			e.printStackTrace();
 		}
 
-		boostBuffer = new Timer(250, this);
+		boostBuffer = new Timer(1000 / 60, this);
 		timer = new Timer(1000 / 60, this);
 
 		oManager = new ObjectManager(player);
@@ -66,12 +71,21 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-	
-		if(arg0.getSource() == boostBuffer){
-			player.boost = 1;
-			boostBuffer.stop();
+
+		if (playerBoost) {
+			boostRuntime++;
+			gravity = 0;
+			player.yVelocity = 0;
+			player.xVelocity = player.xVelocity == 0 ? player.speed * 3 * (playerDir) : player.xVelocity * 3;
 		}
-		
+
+		if (boostRuntime == 15) {
+			boostRuntime = 0;
+			gravity = 1;
+			playerBoost = false;
+			player.boosting = false;
+		}
+
 		manageDoors();
 
 		oManager.update();
@@ -103,15 +117,27 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 		player.manageDir(keyPressed, true);
 
+		if (keyPressed == KeyEvent.VK_R) {
+			player.setPos(fManager.spawnX, fManager.spawnY);
+		}
+
 		if (keyPressed == KeyEvent.VK_SPACE) {
 			player.jump();
 		}
 		if (keyPressed == KeyEvent.VK_SHIFT && player.boostAble) {
-			if(player.airborn) {
+
+			if (player.facingRight) {
+				playerDir = 1;
+			} else {
+				playerDir = -1;
+			}
+
+			if (player.airborn) {
 				player.boostAble = false;
 			}
-			player.boost = 2;
-			boostBuffer.start();
+			player.boosting = true;
+			playerBoost = true;
+
 		}
 
 		if (keyPressed == KeyEvent.VK_DOWN) {

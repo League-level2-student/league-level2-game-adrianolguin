@@ -38,7 +38,7 @@ public class ObjectManager implements ActionListener {
 
 		iFrames = new Timer(1000, this);
 
-		healthBar = new Health(Evolution.width - 200, 200);
+		healthBar = new Health(Evolution.width - 200, 200, player);
 	}
 
 	void draw(Graphics g) {
@@ -48,7 +48,7 @@ public class ObjectManager implements ActionListener {
 		if (currentRoom != null) {
 			currentRoom.draw(g);
 		}
-		
+
 		player.draw(g);
 	}
 
@@ -56,7 +56,7 @@ public class ObjectManager implements ActionListener {
 
 		player.update();
 
-//		currentRoom.updateContents();
+		// currentRoom.updateContents();
 
 	}
 

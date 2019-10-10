@@ -7,8 +7,11 @@ public class Player extends GameObject {
 
 	boolean boostAble;
 	boolean airborn;
-	int boost = 1;
+	boolean boosting;
 
+	boolean facingRight;
+
+	
 	int yVelocity = 0;
 
 	int xVelocity = 0;
@@ -16,7 +19,7 @@ public class Player extends GameObject {
 	Player(int x, int y) {
 		super(x, y);
 
-		health = 20;
+		health = 6;
 
 		speed = 5;
 
@@ -51,10 +54,12 @@ public class Player extends GameObject {
 		// y += speed;
 		// }
 		if (LEFT) {
-			xVelocity = -speed * boost;
+			xVelocity = -speed;
+		facingRight = false;
 		}
 		if (RIGHT) {
-			xVelocity = speed * boost;
+			xVelocity = speed;
+		facingRight = true;
 		}
 
 	}
@@ -67,7 +72,7 @@ public class Player extends GameObject {
 		if (invincible) {
 			g.setColor(Color.pink);
 			g.fillRect(getCBX(), getCBY(), width, height);
-		} else if (boost == 2) {
+		} else if (boosting) {
 			g.setColor(Color.yellow);
 			g.fillRect(x, y, width, height);
 		} else {
@@ -76,6 +81,12 @@ public class Player extends GameObject {
 		}
 	}
 
+	void boost() {
+		xVelocity = -10;
+		yVelocity = 0;
+		Evolution.panel.gravity = 0;
+		}
+	
 	void jump() {
 		if (!airborn) {
 			yVelocity = -15;

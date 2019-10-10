@@ -10,18 +10,22 @@ public class Health {
 	int sWidth = Evolution.width - 250;
 	int sHeight = Evolution.height;
 
-	int maxHealth = 20;
-	int currentHealth = 20;
+	int maxHealth;
+	int currentHealth;
 
 	int currentRow = 0;
 
 	ArrayList<BufferedImage> health;
 
-	Health(int x, int y) {
+	Health(int x, int y, Player player) {
 
+		
 		this.x = x;
 		this.y = y;
 
+		maxHealth = player.health;
+		currentHealth = maxHealth;
+		
 		health = new ArrayList<BufferedImage>();
 
 		for (int i = 0; i < 10; i++) {

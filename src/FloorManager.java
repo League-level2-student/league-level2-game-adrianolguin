@@ -111,7 +111,7 @@ public class FloorManager {
 			floorRows = 2;
 			floor = new Room[floorCols][floorRows];
 			spawnFloorX = 0;
-			spawnFloorY = 0;
+			spawnFloorY = 1;
 
 			miniMapRWidth = miniMapWidth / floorCols;
 			miniMapRHeight = miniMapHeight / floorRows;
@@ -125,26 +125,42 @@ public class FloorManager {
 			spawnY = floor[spawnFloorX][spawnFloorY].walls[3].y - p.height;
 			////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-			floor[1][0].insideWalls.add(new Wall(spawnX - 200, spawnY + p.height - 100, 35, 75, false, 0, 0));
-			floor[1][0].insideWalls.add(new Wall(spawnX - 300, spawnY + p.height - 200, 35, 175, false, 0, 0));
-			floor[1][0].insideWalls.add(new Wall(spawnX - 400, spawnY + p.height - 300, 35, 300, false, 0, 0));
-			floor[1][0].insideWalls.add(new Wall(125, spawnY + p.height - 300, 375, 35, false, 0, 0));
-			floor[1][0].insideWalls.add(new Wall(50, spawnY + p.height - 200, 375, 35, false, 0, 0));
-			floor[1][0].insideWalls.add(new Wall(125, spawnY + p.height - 100, 375, 35, false, 0, 0));
+			int room00x = floor[0][0].walls[2].x - p.width - 20;
+			int room00y = floor[0][0].walls[3].y - p.height;
+
+			int room10x = floor[0][0].walls[2].x - p.width - 20;
+			int room10y = floor[0][0].walls[3].y - p.height;
+
+			int room01x = floor[0][1].walls[1].door.x;
+			int room01y = floor[0][1].walls[1].door.y + floor[0][1].walls[1].door.height + 10;
+
+			floor[1][0].insideWalls.add(new Wall(room00x - 200, room00y + p.height - 100, 35, 75, false, 0, 0));
+			floor[1][0].insideWalls.add(new Wall(room00x - 300, room00y + p.height - 200, 35, 175, false, 0, 0));
+			floor[1][0].insideWalls.add(new Wall(room00x - 400, room00y + p.height - 300, 35, 300, false, 0, 0));
+			floor[1][0].insideWalls.add(new Wall(125, room00y + p.height - 300, 375, 35, false, 0, 0));
+			floor[1][0].insideWalls.add(new Wall(50, room00y + p.height - 200, 375, 35, false, 0, 0));
+			floor[1][0].insideWalls.add(new Wall(125, room00y + p.height - 100, 375, 35, false, 0, 0));
 
 			////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-			floor[0][0].insideWalls.add(new Wall(spawnX - 200, spawnY + p.height - 250, 35, 250, false, 0, 0));
-			floor[0][0].insideWalls.add(new Wall(spawnX - 175, spawnY + p.height - 100, 85, 30, false, 0, 0));
-			floor[0][0].insideWalls.add(new Wall(spawnX - 45, spawnY + p.height - 220, 85, 30, false, 0, 0));
+			floor[0][0].insideWalls.add(new Wall(room10x - 200, room10y + p.height - 250, 35, 250, false, 0, 0));
+			floor[0][0].insideWalls.add(new Wall(room10x - 175, room10y + p.height - 100, 85, 30, false, 0, 0));
+			floor[0][0].insideWalls.add(new Wall(room10x - 45, room10y + p.height - 220, 85, 30, false, 0, 0));
 
-			floor[0][0].insideWalls.add(new Wall(spawnX - 430, spawnY + p.height - 250, 35, 250, false, 0, 0));
+			floor[0][0].insideWalls.add(new Wall(room10x - 450, room10y + p.height - 250, 35, 250, false, 0, 0));
 
-			floor[0][0].insideWalls.add(new Wall(spawnX - 545, spawnY + p.height - 500, 35, 250, false, 0, 0));
+			floor[0][0].insideWalls.add(new Wall(room10x - 555, room10y + p.height - 500, 35, 250, false, 0, 0));
 
-			floor[0][0].insideWalls.add(new Wall(spawnX - 660, spawnY + p.height - 250, 35, 250, false, 0, 0));
+			floor[0][0].insideWalls.add(new Wall(room10x - 660, room10y + p.height - 250, 35, 70, false, 0, 0));
+			floor[0][0].insideWalls.add(new Wall(room10x - 660, room10y + p.height - 145, 35, 145, false, 0, 0));
 
 			////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+			floor[0][1].insideWalls.add(new Wall(room01x + 500, room01y - 10, 35, 510, false, 0, 0));
+
+			floor[0][1].insideWalls.add(new Wall(room01x, room01y + 100, 450, 35, false, 0, 0));
+			floor[0][1].insideWalls.add(new Wall(room01x + 50, room01y + 250, 450, 35, false, 0, 0));
+			floor[0][1].insideWalls.add(new Wall(room01x, room01y + 400, 450, 35, false, 0, 0));
 
 			////////////////////////////////////////////////////////////////////////////////////////////////////////
 
