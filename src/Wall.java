@@ -10,6 +10,9 @@ public class Wall extends GameObject {
 
 	boolean hasDoor;
 
+	Rectangle jumpableArea;
+	int jumpableAreaSize = 1;
+
 	Wall(int x, int y, int width, int height, boolean hasDoor, int doorDistance, int doorSize) {
 		super(x, y);
 
@@ -34,23 +37,25 @@ public class Wall extends GameObject {
 		} else {
 			door = new Rectangle(0, 0, 0, 0);
 		}
-		
+
+		jumpableArea = new Rectangle(x - jumpableAreaSize, y + 2, width + jumpableAreaSize * 2, height - 2);
+
 		collisionBox = new Rectangle(x, y, width, height);
 		collisionBox.setBounds(collisionBox);
 
 	}
 
 	void draw(Graphics g) {
-		
-		
+
+		g.setColor(Color.CYAN);
+		g.fillRect(jumpableArea.x, jumpableArea.y, jumpableArea.width, jumpableArea.height);
+
 		g.setColor(Color.white);
 		g.fillRect(x, y, width, height);
 
 		g.setColor(Color.green);
 		g.fillRect(door.x, door.y, door.width, door.height);
-		
-		
-		
+
 	}
 
 	void doorSize(int num) {

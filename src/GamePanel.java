@@ -30,7 +30,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	int playerDir;
 
 	int gravity = 1;
-
+	int friction = 1;
+	
 	int sWidth = Evolution.width - 250;
 	int sHeight = Evolution.height;
 
@@ -72,19 +73,21 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 
-		if (playerBoost) {
-			boostRuntime++;
-			gravity = 0;
-			player.yVelocity = 0;
-			player.xVelocity = player.xVelocity == 0 ? player.speed * 3 * (playerDir) : player.xVelocity * 3;
-		}
-
-		if (boostRuntime == 15) {
-			boostRuntime = 0;
-			gravity = 1;
-			playerBoost = false;
-			player.boosting = false;
-		}
+//		if (playerBoost) {
+//			boostRuntime++;
+//			gravity = 0;
+//			friction = 0;
+//			player.yVelocity = 0;
+//			player.xVelocity = player.xVelocity == 0 ? player.speed * 3 * (playerDir) : player.xVelocity * 3;
+//		}
+//
+//		if (boostRuntime == 15) {
+//			boostRuntime = 0;
+//			gravity = 1;
+//			friction = 1;
+//			playerBoost = false;
+//			player.boosting = false;
+//		}
 
 		manageDoors();
 
@@ -122,22 +125,19 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		}
 
 		if (keyPressed == KeyEvent.VK_SPACE) {
-			player.jump();
-		}
-		if (keyPressed == KeyEvent.VK_SHIFT && player.boostAble) {
 
-			if (player.facingRight) {
-				playerDir = 1;
+			if (player.grinding) {
+				player.wallJump();
 			} else {
-				playerDir = -1;
+				player.jump();
 			}
 
-			if (player.airborn) {
-				player.boostAble = false;
-			}
-			player.boosting = true;
-			playerBoost = true;
+		}
+		
+		if (keyPressed == KeyEvent.VK_SHIFT) {
 
+			player.boost();
+			
 		}
 
 		if (keyPressed == KeyEvent.VK_DOWN) {

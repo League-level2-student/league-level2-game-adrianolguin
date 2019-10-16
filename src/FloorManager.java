@@ -110,7 +110,7 @@ public class FloorManager {
 			floorCols = 2;
 			floorRows = 2;
 			floor = new Room[floorCols][floorRows];
-			spawnFloorX = 0;
+			spawnFloorX = 1;
 			spawnFloorY = 1;
 
 			miniMapRWidth = miniMapWidth / floorCols;
@@ -156,11 +156,11 @@ public class FloorManager {
 
 			////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-			floor[0][1].insideWalls.add(new Wall(room01x + 500, room01y - 10, 35, 510, false, 0, 0));
+			floor[0][1].insideWalls.add(new Wall(room01x + 500, room01y - 10, 35, 420, false, 0, 0));
 
-			floor[0][1].insideWalls.add(new Wall(room01x, room01y + 100, 450, 35, false, 0, 0));
-			floor[0][1].insideWalls.add(new Wall(room01x + 50, room01y + 250, 450, 35, false, 0, 0));
-			floor[0][1].insideWalls.add(new Wall(room01x, room01y + 400, 450, 35, false, 0, 0));
+			floor[0][1].insideWalls.add(new Wall(room01x, room01y + 175, 450, 35, false, 0, 0));
+			floor[0][1].insideWalls.add(new Wall(room01x + 50, room01y + 375, 450, 35, false, 0, 0));
+			floor[0][1].insideWalls.add(new Wall(room01x, room01y + 520, 800, 40, false, 0, 0));
 
 			////////////////////////////////////////////////////////////////////////////////////////////////////////
 

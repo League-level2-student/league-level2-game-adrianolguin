@@ -107,7 +107,15 @@ public class ObjectManager implements ActionListener {
 			eDoor = true;
 		} else if (player.x + player.width > currentRoom.walls[2].x) {
 			player.x = currentRoom.walls[2].x - player.width;
+
 		}
+
+		if(player.collisionBox.intersects(currentRoom.walls[2].jumpableArea)) {
+			player.grinding = true;
+		} else {
+			player.grinding = false;
+		}
+		
 		// -------------------------------------------------------------------------------
 		if (player.y < currentRoom.walls[0].door.y + currentRoom.walls[0].doorSize
 				&& player.y + player.width > currentRoom.walls[0].door.y

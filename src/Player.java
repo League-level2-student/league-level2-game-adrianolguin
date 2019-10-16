@@ -1,17 +1,30 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
-public class Player extends GameObject {
+import javax.swing.Timer;
 
+public class Player extends GameObject implements ActionListener {
+
+	int fRIGHT = 1;
+	int fLEFT = -1;
+
+	Timer boostBuffer;
+	boolean Boosting;
+	//make it so when boosting you cant control the player with left and right to get rid of the weird boost while holding left and right
+	
 	boolean boostAble;
 	boolean airborn;
 	boolean boosting;
 
-	boolean facingRight;
+	int dir;
 
-	
+	boolean wallJump = false;
+	boolean grinding = false;
+
 	int yVelocity = 0;
 
 	int xVelocity = 0;
@@ -29,6 +42,8 @@ public class Player extends GameObject {
 		collisionBox = new Rectangle(x, y, width, height);
 		collisionBox.setBounds(collisionBox);
 
+		boostBuffer = new Timer(1000 / 60, this);
+
 	}
 
 	void update() {
@@ -38,14 +53,16 @@ public class Player extends GameObject {
 		yVelocity += Evolution.panel.gravity;
 		y += yVelocity;
 
+		if (xVelocity < 0) {
+			xVelocity += Evolution.panel.friction;
+		} else if (xVelocity > 0) {
+			xVelocity -= Evolution.panel.friction;
+		}
+
 		x += xVelocity;
 
 		collisionBox.x = x;
 		collisionBox.y = y;
-
-		if (!LEFT || !RIGHT) {
-			xVelocity = 0;
-		}
 
 		if (UP) {
 			y -= speed;
@@ -55,12 +72,21 @@ public class Player extends GameObject {
 		// }
 		if (LEFT) {
 			xVelocity = -speed;
-		facingRight = false;
+			dir = fLEFT;
 		}
 		if (RIGHT) {
 			xVelocity = speed;
-		facingRight = true;
+			dir = fRIGHT;
 		}
+
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent event) {
+
+		Evolution.panel.friction = 1;
+		Evolution.panel.gravity = 1;
+		boostBuffer.stop();
 
 	}
 
@@ -82,17 +108,26 @@ public class Player extends GameObject {
 	}
 
 	void boost() {
-		xVelocity = -10;
+
+		boostBuffer.start();
+
+		xVelocity = speed * 4 * dir;
 		yVelocity = 0;
 		Evolution.panel.gravity = 0;
-		}
-	
+		Evolution.panel.friction = 0;
+	}
+
 	void jump() {
 		if (!airborn) {
 			yVelocity = -15;
 			airborn = true;
 		} else {
 		}
+
+	}
+
+	void wallJump() {
+		yVelocity = -15;
 
 	}
 
