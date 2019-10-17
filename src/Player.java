@@ -12,19 +12,21 @@ public class Player extends GameObject implements ActionListener {
 	int fRIGHT = 1;
 	int fLEFT = -1;
 
+	int wallJumpXVel = 15;
+
 	Timer boostBuffer;
 	boolean Boosting;
-	//make it so when boosting you cant control the player with left and right to get rid of the weird boost while holding left and right
-	
-	boolean boostAble;
+	// make it so when boosting you cant control the player with left and right to
+	// get rid of the weird boost while holding left and right
+
 	boolean airborn;
-	boolean boosting;
 
 	int dir;
 
 	boolean wallJump = false;
 	boolean grinding = false;
-
+	boolean ableBoost = true;
+	
 	int yVelocity = 0;
 
 	int xVelocity = 0;
@@ -42,7 +44,7 @@ public class Player extends GameObject implements ActionListener {
 		collisionBox = new Rectangle(x, y, width, height);
 		collisionBox.setBounds(collisionBox);
 
-		boostBuffer = new Timer(1000 / 60, this);
+		boostBuffer = new Timer(100, this);
 
 	}
 
@@ -64,18 +66,19 @@ public class Player extends GameObject implements ActionListener {
 		collisionBox.x = x;
 		collisionBox.y = y;
 
-		if (UP) {
-			y -= speed;
-		}
-		// if (DOWN) {
-		// y += speed;
-		// }
-		if (LEFT) {
+		if (LEFT && !Boosting) {
+
 			xVelocity = -speed;
+
 			dir = fLEFT;
+
 		}
-		if (RIGHT) {
-			xVelocity = speed;
+		if (RIGHT && !Boosting) {
+
+			if (!wallJump) {
+				xVelocity = speed;
+			}
+
 			dir = fRIGHT;
 		}
 
@@ -84,8 +87,7 @@ public class Player extends GameObject implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent event) {
 
-		Evolution.panel.friction = 1;
-		Evolution.panel.gravity = 1;
+		Boosting = false;
 		boostBuffer.stop();
 
 	}
@@ -98,9 +100,6 @@ public class Player extends GameObject implements ActionListener {
 		if (invincible) {
 			g.setColor(Color.pink);
 			g.fillRect(getCBX(), getCBY(), width, height);
-		} else if (boosting) {
-			g.setColor(Color.yellow);
-			g.fillRect(x, y, width, height);
 		} else {
 			g.setColor(Color.blue);
 			g.fillRect(x, y, width, height);
@@ -109,12 +108,19 @@ public class Player extends GameObject implements ActionListener {
 
 	void boost() {
 
+		if(airborn) {
+			ableBoost = false;
+		}
+		
+		Boosting = true;
+
 		boostBuffer.start();
 
 		xVelocity = speed * 4 * dir;
-		yVelocity = 0;
-		Evolution.panel.gravity = 0;
-		Evolution.panel.friction = 0;
+
+		// yVelocity = 1;
+		// Evolution.panel.gravity = 0;
+		// Evolution.panel.friction = 0;
 	}
 
 	void jump() {
@@ -127,7 +133,18 @@ public class Player extends GameObject implements ActionListener {
 	}
 
 	void wallJump() {
+		
+		
+		
+		wallJump = true;
+
 		yVelocity = -15;
+
+		if (dir == fLEFT) {
+			xVelocity = wallJumpXVel;
+		} else if (dir == fRIGHT) {
+			xVelocity = -wallJumpXVel;
+		}
 
 	}
 

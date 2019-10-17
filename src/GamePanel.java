@@ -134,10 +134,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 		}
 		
-		if (keyPressed == KeyEvent.VK_SHIFT) {
+		if (keyPressed == KeyEvent.VK_SHIFT && !player.Boosting) {
 
+			if(player.ableBoost) {
 			player.boost();
-			
+			}
 		}
 
 		if (keyPressed == KeyEvent.VK_DOWN) {
