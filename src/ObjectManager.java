@@ -78,6 +78,8 @@ public class ObjectManager implements ActionListener {
 
 	void checkWallCollisions() {
 
+		player.grinding = false;
+		
 		if (player.x < currentRoom.walls[3].door.x + currentRoom.walls[3].doorSize
 				&& player.x + player.width > currentRoom.walls[3].door.x
 				&& player.y + player.width > currentRoom.walls[3].y) {
@@ -89,6 +91,8 @@ public class ObjectManager implements ActionListener {
 			player.airborn = false;
 			player.ableBoost = true;
 			player.wallJump = false;
+			player.disableLEFT = false;
+			player.disableRIGHT = false;
 			player.yVelocity = 0;
 		}
 		// -------------------------------------------------------------------------------
@@ -110,14 +114,17 @@ public class ObjectManager implements ActionListener {
 			player.x = currentRoom.walls[2].x - player.width;
 
 		}
-
-		if(player.collisionBox.intersects(currentRoom.walls[2].jumpableArea)) {
+		
+		if (player.collisionBox.intersects(currentRoom.walls[0].jumpableArea)) {
+			player.grinding = true;
+		}else if (player.collisionBox.intersects(currentRoom.walls[2].jumpableArea)) {
 			player.grinding = true;
 		} else {
 			player.grinding = false;
 		}
-		
+
 		// -------------------------------------------------------------------------------
+
 		if (player.y < currentRoom.walls[0].door.y + currentRoom.walls[0].doorSize
 				&& player.y + player.width > currentRoom.walls[0].door.y
 				&& player.x < currentRoom.walls[0].y + currentRoom.wallWidth) {
@@ -125,6 +132,8 @@ public class ObjectManager implements ActionListener {
 		} else if (player.x < currentRoom.walls[0].x + currentRoom.wallWidth) {
 			player.x = currentRoom.walls[0].x + currentRoom.wallWidth;
 		}
+
+		// -------------------------------------------------------------------------------
 
 		for (int x = 0; x < currentRoom.insideWalls.size(); x++) {
 
@@ -140,6 +149,8 @@ public class ObjectManager implements ActionListener {
 					player.airborn = false;
 					player.ableBoost = true;
 					player.wallJump = false;
+					player.disableLEFT = false;
+					player.disableRIGHT = false;
 					player.yVelocity = 0;
 				}
 			}
@@ -148,7 +159,7 @@ public class ObjectManager implements ActionListener {
 						&& player.y + player.height > insideWallY) {
 					player.setX(insideWallX - player.width);
 					player.xVelocity = 0;
-				}
+				} 
 			}
 
 			if (player.y > insideWallY + insideWallHeight - 20) {
@@ -164,6 +175,11 @@ public class ObjectManager implements ActionListener {
 						&& player.y + player.height > insideWallY) {
 					player.setX(insideWallX + insideWallWidth);
 				}
+			}
+
+			if (player.collisionBox.intersects(currentRoom.insideWalls.get(x).jumpableArea)) {
+				player.grinding = true;
+				//System.out.println("test");
 			}
 
 		}

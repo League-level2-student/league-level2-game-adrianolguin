@@ -134,6 +134,9 @@ public class FloorManager {
 			int room01x = floor[0][1].walls[1].door.x;
 			int room01y = floor[0][1].walls[1].door.y + floor[0][1].walls[1].door.height + 10;
 
+			int room11x = 60;
+			int room11y = 60;
+
 			floor[1][0].insideWalls.add(new Wall(room00x - 200, room00y + p.height - 100, 35, 75, false, 0, 0));
 			floor[1][0].insideWalls.add(new Wall(room00x - 300, room00y + p.height - 200, 35, 175, false, 0, 0));
 			floor[1][0].insideWalls.add(new Wall(room00x - 400, room00y + p.height - 300, 35, 300, false, 0, 0));
@@ -164,6 +167,9 @@ public class FloorManager {
 
 			////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+			floor[1][1].insideWalls.add(new Wall(room11x + 250, room11y + 120, 40, 450, false, 0, 0));
+			floor[1][1].insideWalls.add(new Wall(room11x + 100, room11y, 40, 450, false, 0, 0));
+			
 			////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		}

@@ -12,6 +12,9 @@ public class Player extends GameObject implements ActionListener {
 	int fRIGHT = 1;
 	int fLEFT = -1;
 
+	boolean disableRIGHT;
+	boolean disableLEFT;
+	
 	int wallJumpXVel = 15;
 
 	Timer boostBuffer;
@@ -66,16 +69,19 @@ public class Player extends GameObject implements ActionListener {
 		collisionBox.x = x;
 		collisionBox.y = y;
 
+		
 		if (LEFT && !Boosting) {
 
+			if(!disableLEFT) {
 			xVelocity = -speed;
-
+		}
+		
 			dir = fLEFT;
 
 		}
 		if (RIGHT && !Boosting) {
 
-			if (!wallJump) {
+			if (!disableRIGHT && wallJump) {
 				xVelocity = speed;
 			}
 
@@ -142,8 +148,12 @@ public class Player extends GameObject implements ActionListener {
 
 		if (dir == fLEFT) {
 			xVelocity = wallJumpXVel;
+			dir = fRIGHT;
+			disableLEFT = true;
 		} else if (dir == fRIGHT) {
 			xVelocity = -wallJumpXVel;
+			dir = fLEFT;
+			disableRIGHT = true;
 		}
 
 	}

@@ -17,6 +17,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public static BufferedImage brokenHeartImg;
 	public static BufferedImage damagedHeartImg;
 
+	int CurrentGameState = 1;
+	int Game = 0;
+	int tutorial = 1;
+	int LevelBuilder = 2;
+
 	boolean showMiniMap = true;
 
 	boolean doorAccept = false;;
@@ -31,7 +36,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	int gravity = 1;
 	int friction = 1;
-	
+
 	int sWidth = Evolution.width - 250;
 	int sHeight = Evolution.height;
 
@@ -73,32 +78,22 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 
-//		if (playerBoost) {
-//			boostRuntime++;
-//			gravity = 0;
-//			friction = 0;
-//			player.yVelocity = 0;
-//			player.xVelocity = player.xVelocity == 0 ? player.speed * 3 * (playerDir) : player.xVelocity * 3;
-//		}
-//
-//		if (boostRuntime == 15) {
-//			boostRuntime = 0;
-//			gravity = 1;
-//			friction = 1;
-//			playerBoost = false;
-//			player.boosting = false;
-//		}
+		if (CurrentGameState == tutorial) {
+			updateTutorial();
+		}
 
-		manageDoors();
-
-		oManager.update();
-
-		checkCollisions();
-
-		repaint();
 	}
 
-	public void paintComponent(Graphics g) {
+	void updateTutorial() {
+
+		manageDoors();
+		oManager.update();
+		checkCollisions();
+		repaint();
+
+	}
+
+	void drawTutorial(Graphics g) {
 		g.setColor(Color.black);
 		g.fillRect(0, 0, Evolution.width, Evolution.height);
 
@@ -110,6 +105,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		}
 
 		oManager.draw(g);
+	}
+
+	public void paintComponent(Graphics g) {
+
+		if (CurrentGameState == tutorial) {
+			drawTutorial(g);
+		}
 
 	}
 
@@ -120,6 +122,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 		player.manageDir(keyPressed, true);
 
+		if(keyPressed == KeyEvent.VK_NUMPAD9) {
+			CurrentGameState = LevelBuilder;
+		}
+		
 		if (keyPressed == KeyEvent.VK_R) {
 			player.setPos(fManager.spawnX, fManager.spawnY);
 		}
@@ -133,11 +139,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			}
 
 		}
-		
+
 		if (keyPressed == KeyEvent.VK_SHIFT && !player.Boosting) {
 
-			if(player.ableBoost) {
-			player.boost();
+			if (player.ableBoost) {
+				player.boost();
 			}
 		}
 
