@@ -28,10 +28,13 @@ public class FloorManager {
 	int pX;
 	int pY;
 
+	Room CCCC = new Room(50, 50, sWidth - 50, sHeight - 100, false, false, false, false);
 	Room CCOC = new Room(50, 50, sWidth - 50, sHeight - 100, false, false, true, false);
 	Room OCCO = new Room(50, 50, sWidth - 50, sHeight - 100, true, false, false, true);
 	Room COCO = new Room(50, 50, sWidth - 50, sHeight - 100, false, true, false, true);
 	Room COOC = new Room(50, 50, sWidth - 50, sHeight - 100, false, true, true, false);
+	Room OCOC = new Room(50, 50, sWidth - 50, sHeight - 100, true, false, true, false);
+	Room OCCC = new Room(50, 50, sWidth - 50, sHeight - 100, true, false, false, false);
 
 	Player p;
 
@@ -70,20 +73,31 @@ public class FloorManager {
 
 		if (presetNum == 1) {
 
-			floorCols = 3;
-			floorRows = 3;
-			spawnX = 0;
-			spawnY = 0;
+			floorCols = 4;
+			floorRows = 4;
+			spawnX = 200;
+			spawnY = 500;
 			floor = new Room[floorCols][floorRows];
 
 			miniMapRWidth = miniMapWidth / floorCols;
 			miniMapRHeight = miniMapHeight / floorRows;
 
 			floor[0][0] = CCOC;
-			floor[1][0] = OCCO;
-			floor[1][1] = COCO;
-			floor[1][2] = new Room(50, 50, sWidth - 50, sHeight - 100, false, true, true, false);
-			floor[2][2] = new Room(50, 50, sWidth - 50, sHeight - 100, true, false, false, false);
+			floor[1][0] = OCOC;
+			floor[2][0] = OCCO;
+			floor[2][1] = COCO;
+			floor[2][2] = COCO;
+			floor[2][3] = COOC;
+			floor[3][3] = OCCC;
+
+			///
+
+			///
+			floor[1][0].insideWalls.add(new Wall(200, 500, 50, 50, false, 0, 0));
+			floor[1][0].insideWalls.add(new Wall(300, 400, 50, 50, false, 0, 0));
+			floor[1][0].insideWalls.add(new Wall(200, 300, 50, 50, false, 0, 0));
+			floor[1][0].insideWalls.add(new Wall(300, 200, 50, 50, false, 0, 0));
+			///
 
 		} else if (presetNum == 2) {
 
@@ -100,6 +114,9 @@ public class FloorManager {
 			floor[0][1] = new Room(50, 50, sWidth - 50, sHeight - 100, false, true, true, false);
 			floor[1][1] = new Room(50, 50, sWidth - 50, sHeight - 100, true, false, true, false);
 			floor[2][1] = new Room(50, 50, sWidth - 50, sHeight - 100, true, false, false, true);
+			floor[2][1].walls[1].doorDistance = 20;
+			floor[2][1].walls[1].initializeDoor();
+
 			floor[2][2] = new Room(50, 50, sWidth - 50, sHeight - 100, false, true, false, true);
 			floor[2][3] = new Room(50, 50, sWidth - 50, sHeight - 100, false, true, true, false);
 			floor[3][3] = new Room(50, 50, sWidth - 50, sHeight - 100, true, false, false, false);
@@ -121,8 +138,10 @@ public class FloorManager {
 			floor[1][1] = new Room(50, 50, sWidth - 50, sHeight - 100, true, false, false, false);
 			floor[0][1] = new Room(50, 50, sWidth - 50, sHeight - 100, false, true, true, false);
 
-			spawnX = floor[spawnFloorX][spawnFloorY].walls[2].x - p.width - 20;
+			// spawnX = floor[spawnFloorX][spawnFloorY].walls[2].x - p.width - 20;
 			spawnY = floor[spawnFloorX][spawnFloorY].walls[3].y - p.height;
+			spawnX = 110;
+
 			////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 			int room00x = floor[0][0].walls[2].x - p.width - 20;
@@ -169,7 +188,10 @@ public class FloorManager {
 
 			floor[1][1].insideWalls.add(new Wall(room11x + 250, room11y + 120, 40, 450, false, 0, 0));
 			floor[1][1].insideWalls.add(new Wall(room11x + 100, room11y, 40, 450, false, 0, 0));
-			
+			floor[1][1].insideWalls.add(new Wall(room11x + 400, room11y + 120, 50, 40, false, 0, 0));
+			floor[1][1].insideWalls.add(new Wall(room11x + 550, room11y + 120, 50, 40, false, 0, 0));
+			floor[1][1].insideWalls.add(new Wall(room11x + 700, room11y + 120, 50, 40, false, 0, 0));
+
 			////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		}

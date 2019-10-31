@@ -11,12 +11,16 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import org.omg.CORBA.Current;
+
 public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Player player;
 	public static BufferedImage heartImg;
 	public static BufferedImage brokenHeartImg;
 	public static BufferedImage damagedHeartImg;
 
+	boolean tutorialComplete;
+	
 	int CurrentGameState = 1;
 	int Game = 0;
 	int tutorial = 1;
@@ -77,11 +81,28 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
+//
+//		if (CurrentGameState == tutorial) {
+//			updateTutorial();
+//		} else if(CurrentGameState == Game){
+//			updateGame();
+//		
+//		}
 
-		if (CurrentGameState == tutorial) {
-			updateTutorial();
+		manageDoors();
+		oManager.update();
+		checkCollisions();
+		repaint();
+		
+		if(tutorialComplete) {
+			fManager = new FloorManager(1, player);
+			currentRoomX = fManager.spawnFloorX;
+			currentRoomY = fManager.spawnFloorY;
+			oManager.changeCurrentRoom(fManager.floor[currentRoomX][currentRoomY]);
+			player.setPos(fManager.spawnX, fManager.spawnY);
+			tutorialComplete = false;
 		}
-
+		
 	}
 
 	void updateTutorial() {
@@ -92,7 +113,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		repaint();
 
 	}
-
 	void drawTutorial(Graphics g) {
 		g.setColor(Color.black);
 		g.fillRect(0, 0, Evolution.width, Evolution.height);
@@ -108,10 +128,22 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	public void paintComponent(Graphics g) {
+		
+		g.setColor(Color.black);
+		g.fillRect(0, 0, Evolution.width, Evolution.height);
 
-		if (CurrentGameState == tutorial) {
-			drawTutorial(g);
+		g.setColor(Color.gray);
+		g.fillRect(sWidth + 50, 0, 200, sHeight);
+
+		if (showMiniMap == true) {
+			fManager.drawMiniMap(g);
 		}
+
+		oManager.draw(g);
+		
+//		if (CurrentGameState == tutorial) {
+//			drawTutorial(g);
+//		}
 
 	}
 
@@ -122,6 +154,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 		player.manageDir(keyPressed, true);
 
+		if(keyPressed == KeyEvent.VK_NUMPAD0) {
+			tutorialComplete = true;
+		//aka destroy everything
+		}
+		
 		if(keyPressed == KeyEvent.VK_NUMPAD9) {
 			CurrentGameState = LevelBuilder;
 		}

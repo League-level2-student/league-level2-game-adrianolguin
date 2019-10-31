@@ -11,9 +11,9 @@ public class Player extends GameObject implements ActionListener {
 
 	int fRIGHT = 1;
 	int fLEFT = -1;
-
-	boolean disableRIGHT;
-	boolean disableLEFT;
+	
+	boolean disableRIGHT = false;
+	boolean disableLEFT = false;
 	
 	int wallJumpXVel = 15;
 
@@ -55,7 +55,14 @@ public class Player extends GameObject implements ActionListener {
 
 		super.update();
 
+		if(!grinding) {
 		yVelocity += Evolution.panel.gravity;
+		} else {
+			if(!wallJump) {
+			yVelocity = 5;
+			}
+		}
+		
 		y += yVelocity;
 
 		if (xVelocity < 0) {
@@ -81,7 +88,7 @@ public class Player extends GameObject implements ActionListener {
 		}
 		if (RIGHT && !Boosting) {
 
-			if (!disableRIGHT && wallJump) {
+			if (!disableRIGHT) {
 				xVelocity = speed;
 			}
 
@@ -139,8 +146,6 @@ public class Player extends GameObject implements ActionListener {
 	}
 
 	void wallJump() {
-		
-		
 		
 		wallJump = true;
 

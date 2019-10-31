@@ -94,6 +94,7 @@ public class ObjectManager implements ActionListener {
 			player.disableLEFT = false;
 			player.disableRIGHT = false;
 			player.yVelocity = 0;
+		
 		}
 		// -------------------------------------------------------------------------------
 		if (player.x < currentRoom.walls[1].door.x + currentRoom.walls[1].doorSize
@@ -121,6 +122,7 @@ public class ObjectManager implements ActionListener {
 			player.grinding = true;
 		} else {
 			player.grinding = false;
+			player.wallJump = false;
 		}
 
 		// -------------------------------------------------------------------------------
@@ -167,6 +169,8 @@ public class ObjectManager implements ActionListener {
 						&& player.x < insideWallX + insideWallWidth) {
 					player.setY(insideWallY + insideWallHeight);
 					player.yVelocity = 0;
+					
+					player.wallJump = false;
 				}
 			}
 
@@ -179,7 +183,7 @@ public class ObjectManager implements ActionListener {
 
 			if (player.collisionBox.intersects(currentRoom.insideWalls.get(x).jumpableArea)) {
 				player.grinding = true;
-				//System.out.println("test");
+				
 			}
 
 		}
