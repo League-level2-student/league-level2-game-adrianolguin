@@ -155,24 +155,24 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 		player.manageDir(keyPressed, true);
 
-		if(keyPressed == KeyEvent.VK_NUMPAD0) {
+		if (keyPressed == KeyEvent.VK_NUMPAD0) {
 			tutorialComplete = true;
-		//aka destroy everything
+			// aka destroy everything
 		}
-		
-		if(keyPressed == KeyEvent.VK_NUMPAD9) {
+
+		if (keyPressed == KeyEvent.VK_NUMPAD9) {
 			CurrentGameState = LevelBuilder;
 		}
-		
-		if(keyPressed == KeyEvent.VK_NUMPAD5) {
-			//fManager.floor[1][0].lasers.get(0).stop();
+
+		if (keyPressed == KeyEvent.VK_NUMPAD5) {
+			// fManager.floor[1][0].lasers.get(0).stop();
 			fManager.floor[1][0].lasers.get(0).timerStart();
-			
-		} 
-		if(keyPressed == KeyEvent.VK_NUMPAD4) {
+
+		}
+		if (keyPressed == KeyEvent.VK_NUMPAD4) {
 			fManager.floor[1][0].lasers.get(0).shoot();
 		}
-		
+
 		if (keyPressed == KeyEvent.VK_R) {
 			player.setPos(fManager.spawnX, fManager.spawnY);
 		}
@@ -291,6 +291,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 		fManager.pX = currentRoomX;
 		fManager.pY = currentRoomY;
+
+		for (int i = 0; i < fManager.floor[currentRoomX][currentRoomY].lasers.size(); i++) {
+			fManager.floor[currentRoomX][currentRoomY].lasers.get(i).timerStart();
+		}
 
 	}
 

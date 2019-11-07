@@ -56,8 +56,6 @@ public class ObjectManager implements ActionListener {
 
 		player.update();
 
-		// currentRoom.updateContents();
-
 	}
 
 	void checkAllCollisions() {
@@ -204,5 +202,7 @@ public class ObjectManager implements ActionListener {
 		player.invincible = false;
 		iFrames.stop();
 	}
+	
+	
 
 }

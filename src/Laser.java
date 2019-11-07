@@ -16,15 +16,15 @@ public class Laser extends GameObject implements ActionListener {
 	int size, laserLength;
 	String direction;
 	Rectangle hurtBox;
-	
+
 	Timer shootBuffer;
 	boolean shooting = true;
-	
+
 	Laser(int x, int y, int size, int laserLength, String direction) {
 		super(x, y);
-		
+
 		shootBuffer = new Timer(1500, this);
-		
+
 		this.size = size;
 		this.direction = direction;
 		this.laserLength = laserLength;
@@ -45,16 +45,14 @@ public class Laser extends GameObject implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
 
-		if(shooting) {
+		if (shooting) {
 			stop();
-			shooting = false;
 		} else {
 			shoot();
-			shooting = true;
 		}
-		
+
 	}
-	
+
 	void timerStart() {
 		shootBuffer.start();
 	}
@@ -73,6 +71,7 @@ public class Laser extends GameObject implements ActionListener {
 
 	void stop() {
 		hurtBox = new Rectangle(0, 0, 0, 0);
+		shooting = false;
 	}
 
 	void shoot() {
@@ -85,6 +84,7 @@ public class Laser extends GameObject implements ActionListener {
 		} else if (direction.equals(LEFT)) {
 			hurtBox = new Rectangle(x - laserLength, y, laserLength, size);
 		}
+		shooting = true;
 	}
 
 }

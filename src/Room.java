@@ -24,7 +24,7 @@ public class Room {
 
 	ArrayList<Wall> insideWalls;
 	ArrayList<Laser> lasers;
-	
+
 	Room(int x, int y, int width, int height, boolean door1, boolean door2, boolean door3, boolean door4) {
 
 		test = new int[3];
@@ -50,16 +50,16 @@ public class Room {
 
 	void draw(Graphics g) {
 
-		for (int x = 0; x < 4; x++) {
-			walls[x].draw(g);
+		for (int x = 0; x < lasers.size(); x++) {
+			lasers.get(x).draw(g);
 		}
-		
+
 		for (int x = 0; x < insideWalls.size(); x++) {
 			insideWalls.get(x).draw(g);
 		}
 
-		for(int x = 0; x < lasers.size(); x++) {
-			lasers.get(x).draw(g);
+		for (int x = 0; x < 4; x++) {
+			walls[x].draw(g);
 		}
 
 	}
