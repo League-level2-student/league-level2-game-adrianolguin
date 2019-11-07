@@ -8,69 +8,82 @@ import javax.swing.Timer;
 
 public class Laser extends GameObject implements ActionListener {
 
-	boolean UP = true;
-	boolean DOWN = false;
+	String UP = "up";
+	String DOWN = "down";
+	String RIGHT = "right";
+	String LEFT = "left";
 
-	Timer shootingDelay;
-
-	Rectangle laserHitbox;
-
-	boolean shooting;
-
-	boolean dir;
-
-	int laserLength;
-
-	Laser(int x, int y, boolean dir, int laserLength) {
+	int size, laserLength;
+	String direction;
+	Rectangle hurtBox;
+	
+	Timer shootBuffer;
+	boolean shooting = true;
+	
+	Laser(int x, int y, int size, int laserLength, String direction) {
 		super(x, y);
-		this.dir = dir;
+		
+		shootBuffer = new Timer(1500, this);
+		
+		this.size = size;
+		this.direction = direction;
 		this.laserLength = laserLength;
 
-		laserHitbox = new Rectangle(0, 0, 0, 0);
-
-		width = 25;
-		height = 25;
-
-		shootingDelay = new Timer(1000, this);
-		shootingDelay.start();
-	}
-
-	void draw(Graphics g) {
-
-		g.setColor(Color.YELLOW);
-		g.fillRect(x, y, width, height);
-		if (dir == UP) {
-			g.fillRect(x + width / 4, y - 5, width / 2, height);
-		} else if (dir == DOWN) {
-			g.fillRect(x + width / 4, y + height, width / 2, 5);
+		if (direction.equals(UP)) {
+			hurtBox = new Rectangle(x, y - laserLength, size, laserLength);
+		} else if (direction.equals(DOWN)) {
+			hurtBox = new Rectangle(x, y + size, size, laserLength);
+		} else if (direction.equals(RIGHT)) {
+			hurtBox = new Rectangle(x + size, y, laserLength, size);
+		} else if (direction.equals(LEFT)) {
+			hurtBox = new Rectangle(x - laserLength, y, laserLength, size);
 		}
-		g.setColor(Color.red);
-		g.fillRect(laserHitbox.x, laserHitbox.y, laserHitbox.width, laserHitbox.height);
 
-	}
-
-	void shoot() {
-
-		if (dir == UP) {
-			laserHitbox = new Rectangle(x + width / 4, y - 5 - laserLength, width / 2, laserLength);
-		} else if (dir == DOWN) {
-			laserHitbox = new Rectangle(x + width / 4, y + height + 5, width / 2, laserLength);
-		}
-	}
-
-	void stopShooting() {
-		laserHitbox = new Rectangle(0, 0, 0, 0);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
-		if (!shooting) {
+
+		if(shooting) {
+			stop();
+			shooting = false;
+		} else {
 			shoot();
 			shooting = true;
-		} else {
-			stopShooting();
-			shooting = false;
+		}
+		
+	}
+	
+	void timerStart() {
+		shootBuffer.start();
+	}
+
+	void draw(Graphics g) {
+
+		g.setColor(Color.GRAY);
+		g.fillRect(x, y, size, size);
+		g.setColor(Color.DARK_GRAY);
+		g.drawRect(x, y, size - 1, size - 1);
+
+		g.setColor(Color.RED);
+		g.fillRect(hurtBox.x, hurtBox.y, hurtBox.width, hurtBox.height);
+
+	}
+
+	void stop() {
+		hurtBox = new Rectangle(0, 0, 0, 0);
+	}
+
+	void shoot() {
+		if (direction.equals(UP)) {
+			hurtBox = new Rectangle(x, y - laserLength, size, laserLength);
+		} else if (direction.equals(DOWN)) {
+			hurtBox = new Rectangle(x, y + size, size, laserLength);
+		} else if (direction.equals(RIGHT)) {
+			hurtBox = new Rectangle(x + size, y, laserLength, size);
+		} else if (direction.equals(LEFT)) {
+			hurtBox = new Rectangle(x - laserLength, y, laserLength, size);
 		}
 	}
 

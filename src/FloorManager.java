@@ -3,6 +3,12 @@ import java.awt.Graphics;
 
 public class FloorManager {
 
+	
+	String UP = "up";
+	String DOWN = "down";
+	String RIGHT = "right";
+	String LEFT  = "left";
+	
 	int spawnFloorX;
 	int spawnFloorY;
 	int spawnX;
@@ -14,6 +20,8 @@ public class FloorManager {
 	int impassable = 40;
 
 	Room[][] floor;
+	
+	
 	int floorCols;
 	int floorRows;
 
@@ -97,6 +105,9 @@ public class FloorManager {
 			floor[1][0].insideWalls.add(new Wall(300, 400, 50, 50, false, 0, 0));
 			floor[1][0].insideWalls.add(new Wall(200, 300, 50, 50, false, 0, 0));
 			floor[1][0].insideWalls.add(new Wall(300, 200, 50, 50, false, 0, 0));
+			
+			floor[1][0].lasers.add(new Laser(400,400, 30, 100, LEFT));
+			
 			///
 
 		} else if (presetNum == 2) {
@@ -121,7 +132,7 @@ public class FloorManager {
 			floor[2][3] = new Room(50, 50, sWidth - 50, sHeight - 100, false, true, true, false);
 			floor[3][3] = new Room(50, 50, sWidth - 50, sHeight - 100, true, false, false, false);
 
-			floor[0][0].lasers.add(new Laser(200, 200, false, 400));
+			
 
 		} else if (presetNum == 3) {
 			floorCols = 2;

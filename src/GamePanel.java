@@ -20,7 +20,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public static BufferedImage damagedHeartImg;
 
 	boolean tutorialComplete;
-	
+
 	int CurrentGameState = 1;
 	int Game = 0;
 	int tutorial = 1;
@@ -67,7 +67,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		timer = new Timer(1000 / 60, this);
 
 		oManager = new ObjectManager(player);
-		fManager = new FloorManager(3, player);
+		fManager = new FloorManager(1, player);
 		currentRoomX = fManager.spawnFloorX;
 		currentRoomY = fManager.spawnFloorY;
 		oManager.changeCurrentRoom(fManager.floor[currentRoomX][currentRoomY]);
@@ -81,20 +81,20 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-//
-//		if (CurrentGameState == tutorial) {
-//			updateTutorial();
-//		} else if(CurrentGameState == Game){
-//			updateGame();
-//		
-//		}
+		//
+		// if (CurrentGameState == tutorial) {
+		// updateTutorial();
+		// } else if(CurrentGameState == Game){
+		// updateGame();
+		//
+		// }
 
 		manageDoors();
 		oManager.update();
 		checkCollisions();
 		repaint();
-		
-		if(tutorialComplete) {
+
+		if (tutorialComplete) {
 			fManager = new FloorManager(1, player);
 			currentRoomX = fManager.spawnFloorX;
 			currentRoomY = fManager.spawnFloorY;
@@ -102,7 +102,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			player.setPos(fManager.spawnX, fManager.spawnY);
 			tutorialComplete = false;
 		}
-		
+
 	}
 
 	void updateTutorial() {
@@ -113,6 +113,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		repaint();
 
 	}
+
 	void drawTutorial(Graphics g) {
 		g.setColor(Color.black);
 		g.fillRect(0, 0, Evolution.width, Evolution.height);
@@ -128,7 +129,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	public void paintComponent(Graphics g) {
-		
+
 		g.setColor(Color.black);
 		g.fillRect(0, 0, Evolution.width, Evolution.height);
 
@@ -140,10 +141,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		}
 
 		oManager.draw(g);
-		
-//		if (CurrentGameState == tutorial) {
-//			drawTutorial(g);
-//		}
+
+		// if (CurrentGameState == tutorial) {
+		// drawTutorial(g);
+		// }
 
 	}
 
@@ -161,6 +162,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		
 		if(keyPressed == KeyEvent.VK_NUMPAD9) {
 			CurrentGameState = LevelBuilder;
+		}
+		
+		if(keyPressed == KeyEvent.VK_NUMPAD5) {
+			//fManager.floor[1][0].lasers.get(0).stop();
+			fManager.floor[1][0].lasers.get(0).timerStart();
+			
+		} 
+		if(keyPressed == KeyEvent.VK_NUMPAD4) {
+			fManager.floor[1][0].lasers.get(0).shoot();
 		}
 		
 		if (keyPressed == KeyEvent.VK_R) {

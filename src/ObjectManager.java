@@ -69,7 +69,7 @@ public class ObjectManager implements ActionListener {
 	void checkHazardCollisions() {
 
 		for (int i = 0; i < currentRoom.lasers.size(); i++) {
-			if (player.collisionBox.intersects(currentRoom.lasers.get(i).laserHitbox)) {
+			if (player.collisionBox.intersects(currentRoom.lasers.get(i).hurtBox)) {
 				player.takeDamage();
 			}
 		}
