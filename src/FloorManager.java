@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 public class FloorManager {
 
@@ -129,6 +130,8 @@ public class FloorManager {
 			//
 			floor[2][0].lasers.add(new Laser(760, 100, 25, 700, LEFT));
 			floor[2][0].lasers.get(0).shootBuffer.setDelay(500);
+			
+			
 
 		} else if (presetNum == 2) {
 
@@ -229,6 +232,13 @@ public class FloorManager {
 
 	Room getRoom(int x, int y) {
 		return floor[x][y];
+	}
+	
+	void spikeStrip(Rectangle r, int spikeAmount) {
+	int amount = r.width/spikeAmount;
+	for(int x = 0; x < amount; x++) {
+		
+	}
 	}
 
 }

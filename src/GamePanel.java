@@ -19,6 +19,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public static BufferedImage brokenHeartImg;
 	public static BufferedImage damagedHeartImg;
 
+	Spike test;
+
 	boolean tutorialComplete;
 
 	int CurrentGameState = 1;
@@ -52,6 +54,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	GamePanel() {
 
+		test = new Spike(500,500, 50,100);
+		
 		player = new Player(0, 0);
 
 		try {
@@ -135,6 +139,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 		g.setColor(Color.gray);
 		g.fillRect(sWidth + 50, 0, 200, sHeight);
+		
+		test.draw(g);
 
 		if (showMiniMap == true) {
 			fManager.drawMiniMap(g);
