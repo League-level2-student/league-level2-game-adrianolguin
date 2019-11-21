@@ -40,7 +40,7 @@ public class Wall extends GameObject {
 			door = new Rectangle(0, 0, 0, 0);
 		}
 
-		jumpableArea = new Rectangle(x - jumpableAreaSize, y + 5, width + jumpableAreaSize * 2, height - 5);
+		jumpableArea = new Rectangle(x - jumpableAreaSize, y + 15, width + jumpableAreaSize * 2, height - 15);
 
 		collisionBox = new Rectangle(x, y, width, height);
 		collisionBox.setBounds(collisionBox);
@@ -69,27 +69,6 @@ public class Wall extends GameObject {
 	}
 
 	void initializeDoor() {
-
-//		if (hasDoor) {
-//
-//			if (height > width) {
-//				if (height % 2 == 0) {
-//					door = new Rectangle(x, y + (height / 2 - doorSize / 2), width, doorSize);
-//				} else {
-//					door = new Rectangle(x, y + (height + 1) / 2 - ((doorSize / 2) + 1), width, doorSize + 1);
-//				}
-//			} else {
-//				if (width % 2 == 0) {
-//					door = new Rectangle(x + (width / 2 - doorSize / 2), y, doorSize, height);
-//				} else {
-//					door = new Rectangle(x + (width + 1) / 2 - ((doorSize / 2) + 1), y, doorSize + 1, height);
-//				}
-//			}
-//			door.setBounds(door);
-//		} else {
-//			door = new Rectangle(0, 0, 0, 0);
-//		}
-		
 		if (hasDoor) {
 			if (height > width) {
 
@@ -127,6 +106,11 @@ public class Wall extends GameObject {
 		}
 		door.setBounds(door);
 
+	}
+	
+	void doorDistance(int distance) {
+	doorDistance = distance;
+	initializeDoor();
 	}
 
 	void closeDoor() {

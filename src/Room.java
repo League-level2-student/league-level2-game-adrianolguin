@@ -49,17 +49,16 @@ public class Room {
 	}
 
 	void draw(Graphics g) {
-
-		for (int x = 0; x < lasers.size(); x++) {
-			lasers.get(x).draw(g);
-		}
-
 		for (int x = 0; x < insideWalls.size(); x++) {
 			insideWalls.get(x).draw(g);
 		}
 
 		for (int x = 0; x < 4; x++) {
 			walls[x].draw(g);
+		}
+		
+		for (int x = 0; x < lasers.size(); x++) {
+			lasers.get(x).draw(g);
 		}
 
 	}

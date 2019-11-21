@@ -82,7 +82,9 @@ public class FloorManager {
 			floorCols = 4;
 			floorRows = 4;
 			spawnX = 200;
-			spawnY = 500;
+			spawnY = 50;
+			spawnFloorX = 2;
+			spawnFloorY = 0;
 			floor = new Room[floorCols][floorRows];
 
 			miniMapRWidth = miniMapWidth / floorCols;
@@ -90,7 +92,10 @@ public class FloorManager {
 
 			floor[0][0] = CCOC;
 			floor[1][0] = OCOC;
+			floor[1][0].walls[2].doorDistance(50);
 			floor[2][0] = OCCO;
+			floor[2][0].walls[3].doorDistance(850);
+			floor[2][0].walls[0].doorDistance(50);
 			floor[2][1] = COCO;
 			floor[2][2] = COCO;
 			floor[2][3] = COOC;
@@ -104,12 +109,26 @@ public class FloorManager {
 			floor[1][0].insideWalls.add(new Wall(200, 300, 50, 50, false, 0, 0));
 			floor[1][0].insideWalls.add(new Wall(300, 200, 50, 50, false, 0, 0));
 			floor[1][0].insideWalls.add(new Wall(450, 200, 50, 430, false, 0, 0));
+			floor[1][0].insideWalls.add(new Wall(750, 200, 190, 50, false, 0, 0));
+			floor[1][0].insideWalls.add(new Wall(890, 140, 50, 60, false, 0, 0));
 
 			floor[1][0].lasers.add(new Laser(310, 450, 30, 250, LEFT));
 			floor[1][0].lasers.add(new Laser(210, 350, 30, 230, RIGHT));
 			floor[1][0].lasers.add(new Laser(310, 250, 30, 250, LEFT));
-
 			///
+			floor[2][0].insideWalls.add(new Wall(60, 170, 600, 20, false, 0, 0));
+			floor[2][0].insideWalls.add(new Wall(60, 140, 50, 50, false, 0, 0));
+			floor[2][0].insideWalls.add(new Wall(160, 140, 50, 50, false, 0, 0));
+			floor[2][0].insideWalls.add(new Wall(260, 140, 150, 50, false, 0, 0));
+			floor[2][0].insideWalls.add(new Wall(460, 140, 100, 50, false, 0, 0));
+			floor[2][0].insideWalls.add(new Wall(610, 140, 50, 50, false, 0, 0));
+
+			floor[2][0].insideWalls.add(new Wall(750, 60, 50, 400, false, 0, 0));
+			floor[2][0].insideWalls.add(new Wall(125, 300, 625, 30, false, 0, 0));
+
+			//
+			floor[2][0].lasers.add(new Laser(760, 100, 25, 700, LEFT));
+			floor[2][0].lasers.get(0).shootBuffer.setDelay(500);
 
 		} else if (presetNum == 2) {
 
