@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 public class Spike {
 
@@ -24,4 +25,44 @@ public class Spike {
 		g.fillPolygon(pointXs, pointYs, 3);
 	}
 	
+}
+
+class spikeStrip {
+	int x, y, width, height;
+	int amount;
+	int triangleSize;
+	int[] pointXs;
+	int[] pointYs;
+	Rectangle hurtBox;
+	int triangleWidth;
+	int triangleHeight;
+	spikeStrip(int x, int y, int width, int height){
+		pointXs = new int[3];
+		pointYs = new int[3];
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+		hurtBox = new Rectangle(x,y,width,height);
+		triangleWidth = width / 10;
+		triangleHeight = height;
+		amount = width/triangleWidth;
+		
+	}
+	
+	void draw(Graphics g) {
+		g.drawRect(x, y, width, height);
+		for(int i = 0; i < amount; i++) {
+			pointXs[0] = (x + triangleWidth/2) + (triangleWidth * i);
+			pointYs[0] = y;
+			
+			pointXs[1] = x + triangleWidth * i;
+			pointYs[1] = y + triangleHeight;
+			
+			pointXs[2] = (x + triangleWidth) + triangleWidth * i;
+			pointYs[2] = y + triangleHeight;
+			g.setColor(Color.gray);
+			g.fillPolygon(pointXs, pointYs, 3);
+		}
+	}
 }

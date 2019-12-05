@@ -57,6 +57,12 @@ public class ObjectManager implements ActionListener {
 		player.update();
 
 	}
+	
+	void checkEvents() {
+		if() {
+			
+		}
+	}
 
 	void checkAllCollisions() {
 		checkWallCollisions();
@@ -68,6 +74,12 @@ public class ObjectManager implements ActionListener {
 
 		for (int i = 0; i < currentRoom.lasers.size(); i++) {
 			if (player.collisionBox.intersects(currentRoom.lasers.get(i).hurtBox)) {
+				player.takeDamage();
+			}
+		}
+		
+		for(int i = 0; i < currentRoom.spikeStrips.size(); i++) {
+			if(player.collisionBox.intersects(currentRoom.spikeStrips.get(i).hurtBox)) {
 				player.takeDamage();
 			}
 		}
