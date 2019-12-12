@@ -5,10 +5,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
+import javax.swing.JButton;
 import javax.swing.Timer;
 
 public class Player extends GameObject implements ActionListener {
 
+	JButton button;
+	
 	int fRIGHT = 1;
 	int fLEFT = -1;
 	
@@ -37,6 +40,8 @@ public class Player extends GameObject implements ActionListener {
 	Player(int x, int y) {
 		super(x, y);
 
+		button = new JButton();
+		
 		health = 6;
 
 		speed = 5;

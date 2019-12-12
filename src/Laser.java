@@ -3,16 +3,21 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.Timer;
 
 public class Laser extends GameObject implements ActionListener {
 
+	ArrayList<EventBox> eventBoxes;
+	
 	String UP = "up";
 	String DOWN = "down";
 	String RIGHT = "right";
 	String LEFT = "left";
 
+	boolean state = true;
+	
 	int size, laserLength;
 	String direction;
 	Rectangle hurtBox;
@@ -23,6 +28,8 @@ public class Laser extends GameObject implements ActionListener {
 	Laser(int x, int y, int size, int laserLength, String direction) {
 		super(x, y);
 
+		eventBoxes = new ArrayList<EventBox>();
+		
 		shootBuffer = new Timer(1500, this);
 
 		this.size = size;
@@ -56,9 +63,19 @@ public class Laser extends GameObject implements ActionListener {
 	void timerStart() {
 		shootBuffer.start();
 	}
+	
+	void timerStop() {
+		shootBuffer.stop();
+
+	}
 
 	void draw(Graphics g) {
 
+		for(int x = 0; x < eventBoxes.size(); x++) {
+		g.setColor(Color.yellow);
+		g.fillRect(eventBoxes.get(x).x, eventBoxes.get(x).y, eventBoxes.get(x).width, eventBoxes.get(x).height);
+		}
+		
 		g.setColor(Color.GRAY);
 		g.fillRect(x, y, size, size);
 		g.setColor(Color.DARK_GRAY);
@@ -87,4 +104,11 @@ public class Laser extends GameObject implements ActionListener {
 		shooting = true;
 	}
 
+	void addEventBox(int x, int y, int width, int height, boolean state) {
+		EventBox eventBox = new EventBox(x, y, width, height, state);
+		eventBoxes.add(eventBox);
+	}
+	
+	
+	
 }

@@ -51,7 +51,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	FloorManager fManager;
 
 	GamePanel() {
-		
+
 		player = new Player(0, 0);
 
 		try {
@@ -153,24 +153,18 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 		int keyPressed = e.getKeyCode();
 
+		if (keyPressed == KeyEvent.VK_NUMPAD5) {
+
+		}
+
 		player.manageDir(keyPressed, true);
 
 		if (keyPressed == KeyEvent.VK_NUMPAD0) {
 			tutorialComplete = true;
-			// aka destroy everything
 		}
 
 		if (keyPressed == KeyEvent.VK_NUMPAD9) {
 			CurrentGameState = LevelBuilder;
-		}
-
-		if (keyPressed == KeyEvent.VK_NUMPAD5) {
-			// fManager.floor[1][0].lasers.get(0).stop();
-			fManager.floor[1][0].lasers.get(0).timerStart();
-
-		}
-		if (keyPressed == KeyEvent.VK_NUMPAD4) {
-			fManager.floor[1][0].lasers.get(0).shoot();
 		}
 
 		if (keyPressed == KeyEvent.VK_R) {
@@ -178,7 +172,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		}
 
 		if (keyPressed == KeyEvent.VK_SPACE) {
-
 			if (player.grinding) {
 				player.wallJump();
 			} else {
@@ -293,7 +286,14 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		fManager.pY = currentRoomY;
 
 		for (int i = 0; i < fManager.floor[currentRoomX][currentRoomY].lasers.size(); i++) {
-			fManager.floor[currentRoomX][currentRoomY].lasers.get(i).timerStart();
+			if (fManager.floor[currentRoomX][currentRoomY].lasers.get(i).state == true) {
+				fManager.floor[currentRoomX][currentRoomY].lasers.get(i).timerStart();
+
+			} else if (fManager.floor[currentRoomX][currentRoomY].lasers.get(i).state == false) {
+				fManager.floor[currentRoomX][currentRoomY].lasers.get(i).timerStop();
+				fManager.floor[currentRoomX][currentRoomY].lasers.get(i).stop();
+				
+			}
 		}
 
 	}

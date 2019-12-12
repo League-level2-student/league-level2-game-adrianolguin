@@ -36,21 +36,22 @@ class spikeStrip {
 	Rectangle hurtBox;
 	int triangleWidth;
 	int triangleHeight;
-	spikeStrip(int x, int y, int width, int height){
+	spikeStrip(int x, int y, int width, int height, int amount){
 		pointXs = new int[3];
 		pointYs = new int[3];
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
+		this.amount = amount;
 		hurtBox = new Rectangle(x,y,width,height);
-		triangleWidth = width / 10;
+		triangleWidth = width / amount;
 		triangleHeight = height;
-		amount = width/triangleWidth;
 		
 	}
 	
 	void draw(Graphics g) {
+		g.setColor(Color.red);
 		g.drawRect(x, y, width, height);
 		for(int i = 0; i < amount; i++) {
 			pointXs[0] = (x + triangleWidth/2) + (triangleWidth * i);

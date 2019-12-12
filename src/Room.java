@@ -25,7 +25,6 @@ public class Room {
 	ArrayList<Wall> insideWalls;
 	ArrayList<Laser> lasers;
 	ArrayList<spikeStrip> spikeStrips;
-	ArrayList<ActionBarrier> events;
 
 	Room(int x, int y, int width, int height, boolean door1, boolean door2, boolean door3, boolean door4) {
 
@@ -41,9 +40,7 @@ public class Room {
 		lasers = new ArrayList<Laser>();
 
 		spikeStrips = new ArrayList<spikeStrip>();
-		
-		events = new ArrayList<ActionBarrier>();
-		
+				
 		walls = new Wall[4];
 
 		walls[0] = new Wall(x, y, wallWidth, height, door1, height - wallWidth - doorSize, doorSize);

@@ -125,15 +125,20 @@ public class FloorManager {
 			floor[2][0].insideWalls.add(new Wall(610, 140, 50, 50, false, 0, 0));
 
 			floor[2][0].insideWalls.add(new Wall(750, 60, 50, 400, false, 0, 0));
-			floor[2][0].insideWalls.add(new Wall(125, 320, 625, 30, false, 0, 0));
+			floor[2][0].insideWalls.add(new Wall(175, 320, 625, 30, false, 0, 0));
 
 			//
-			floor[2][0].lasers.add(new Laser(760, 100, 25, 700, LEFT));
+			floor[2][0].lasers.add(new Laser(760, 110, 25, 700, LEFT));
 			floor[2][0].lasers.get(0).shootBuffer.setDelay(500);
+			floor[2][0].lasers.get(0).addEventBox(660, 150, 90, 45, false);
+			floor[2][0].lasers.add(new Laser(45, 250, 25, 680, RIGHT));
+			floor[2][0].lasers.get(1).shootBuffer.setDelay(1250);
+			floor[2][0].lasers.get(1).addEventBox(60, 325, 115, 45, false);
 			//
-			floor[2][0].spikeStrips.add(new spikeStrip(370,320 - 25,150,25));
+			floor[2][0].spikeStrips.add(new spikeStrip(500, 295, 110, 25, 5));
+			floor[2][0].spikeStrips.add(new spikeStrip(290, 295, 110, 25, 5));
 			//
-			floor[2][0].events.add(new ActionBarrier(660, 185, 30,10));
+			
 
 		} else if (presetNum == 2) {
 
