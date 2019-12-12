@@ -70,12 +70,13 @@ public class ObjectManager implements ActionListener {
 			if (player.collisionBox.intersects(currentRoom.lasers.get(i).hurtBox)) {
 				player.takeDamage();
 			}
-
 			for (int x = 0; x < currentRoom.lasers.get(i).eventBoxes.size(); x++) {
 				if (player.collisionBox.intersects(currentRoom.lasers.get(i).eventBoxes.get(x).boundingBox)) {
 					currentRoom.lasers.get(i).state = currentRoom.lasers.get(i).eventBoxes.get(x).state;
+					if(currentRoom.lasers.get(i).eventBoxes.get(x).persistance == false) {
+						currentRoom.lasers.get(i).eventBoxes.get(x).disappear();
+					}
 				}
-
 			}
 		}
 

@@ -25,9 +25,11 @@ public class Laser extends GameObject implements ActionListener {
 	Timer shootBuffer;
 	boolean shooting = true;
 
-	Laser(int x, int y, int size, int laserLength, String direction) {
+	Laser(int x, int y, int size, int laserLength, String direction, boolean state) {
 		super(x, y);
 
+		this.state = state;
+		
 		eventBoxes = new ArrayList<EventBox>();
 		
 		shootBuffer = new Timer(1500, this);
@@ -104,8 +106,8 @@ public class Laser extends GameObject implements ActionListener {
 		shooting = true;
 	}
 
-	void addEventBox(int x, int y, int width, int height, boolean state) {
-		EventBox eventBox = new EventBox(x, y, width, height, state);
+	void addEventBox(int x, int y, int width, int height, boolean state, boolean persistance) {
+		EventBox eventBox = new EventBox(x, y, width, height, state, persistance);
 		eventBoxes.add(eventBox);
 	}
 	

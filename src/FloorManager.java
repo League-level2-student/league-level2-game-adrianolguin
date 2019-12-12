@@ -84,7 +84,7 @@ public class FloorManager {
 			floorRows = 4;
 			spawnX = 200;
 			spawnY = 50;
-			spawnFloorX = 2;
+			spawnFloorX = 1;
 			spawnFloorY = 0;
 			floor = new Room[floorCols][floorRows];
 
@@ -113,9 +113,9 @@ public class FloorManager {
 			floor[1][0].insideWalls.add(new Wall(750, 200, 190, 50, false, 0, 0));
 			floor[1][0].insideWalls.add(new Wall(890, 140, 50, 60, false, 0, 0));
 
-			floor[1][0].lasers.add(new Laser(310, 450, 30, 250, LEFT));
-			floor[1][0].lasers.add(new Laser(210, 350, 30, 230, RIGHT));
-			floor[1][0].lasers.add(new Laser(310, 250, 30, 250, LEFT));
+			floor[1][0].lasers.add(new Laser(310, 450, 30, 250, LEFT, true));
+			floor[1][0].lasers.add(new Laser(210, 350, 30, 230, RIGHT, true));
+			floor[1][0].lasers.add(new Laser(310, 250, 30, 250, LEFT, true));
 			///
 			floor[2][0].insideWalls.add(new Wall(60, 170, 600, 20, false, 0, 0));
 			floor[2][0].insideWalls.add(new Wall(60, 140, 50, 50, false, 0, 0));
@@ -128,17 +128,19 @@ public class FloorManager {
 			floor[2][0].insideWalls.add(new Wall(175, 320, 625, 30, false, 0, 0));
 
 			//
-			floor[2][0].lasers.add(new Laser(760, 110, 25, 700, LEFT));
+			floor[2][0].lasers.add(new Laser(760, 110, 25, 700, LEFT, false));
 			floor[2][0].lasers.get(0).shootBuffer.setDelay(500);
-			floor[2][0].lasers.get(0).addEventBox(660, 150, 90, 45, false);
-			floor[2][0].lasers.add(new Laser(45, 250, 25, 680, RIGHT));
+			floor[2][0].lasers.get(0).addEventBox(100, 100, 100, 100, true, false);
+			floor[2][0].lasers.get(0).addEventBox(660, 150, 90, 45, false, true);
+			
+			floor[2][0].lasers.add(new Laser(45, 250, 25, 680, RIGHT, false));
 			floor[2][0].lasers.get(1).shootBuffer.setDelay(1250);
-			floor[2][0].lasers.get(1).addEventBox(60, 325, 115, 45, false);
+			floor[2][0].lasers.get(1).addEventBox(660, 150, 90, 45, true, false);
+			floor[2][0].lasers.get(1).addEventBox(60, 325, 115, 45, false, true);
 			//
 			floor[2][0].spikeStrips.add(new spikeStrip(500, 295, 110, 25, 5));
 			floor[2][0].spikeStrips.add(new spikeStrip(290, 295, 110, 25, 5));
 			//
-			
 
 		} else if (presetNum == 2) {
 
@@ -240,12 +242,12 @@ public class FloorManager {
 	Room getRoom(int x, int y) {
 		return floor[x][y];
 	}
-	
+
 	void spikeStrip(Rectangle r, int spikeAmount) {
-	int amount = r.width/spikeAmount;
-	for(int x = 0; x < amount; x++) {
-		
-	}
+		int amount = r.width / spikeAmount;
+		for (int x = 0; x < amount; x++) {
+
+		}
 	}
 
 }
