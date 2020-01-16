@@ -67,7 +67,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		timer = new Timer(1000 / 60, this);
 
 		oManager = new ObjectManager(player);
-		fManager = new FloorManager(1, player);
+		fManager = new FloorManager(4, player);
 		currentRoomX = fManager.spawnFloorX;
 		currentRoomY = fManager.spawnFloorY;
 		oManager.changeCurrentRoom(fManager.floor[currentRoomX][currentRoomY]);
@@ -187,8 +187,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			}
 		}
 
-		if (keyPressed == KeyEvent.VK_DOWN) {
+		if (keyPressed == KeyEvent.VK_S) {
 			doorAccept = true;
+		} else {
+			doorAccept = false;
 		}
 
 		if (keyPressed == KeyEvent.VK_M) {
@@ -240,9 +242,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			oManager.sDoor = false;
 			currentRoomY++;
 			oManager.changeCurrentRoom(fManager.getRoom(currentRoomX, currentRoomY));
-			player.setPos(fManager.getRoom(currentRoomX, currentRoomY).walls[1].door.x,
-					fManager.getRoom(currentRoomX, currentRoomY).walls[1].door.y
-							+ fManager.getRoom(currentRoomX, currentRoomY).wallWidth);
+			player.setPos(player.x, fManager.getRoom(currentRoomX, currentRoomY).walls[1].door.y
+					+ fManager.getRoom(currentRoomX, currentRoomY).wallWidth);
 			player.yVelocity = 0;
 
 		} else if (oManager.nDoor) {
@@ -251,9 +252,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			currentRoomY--;
 			oManager.changeCurrentRoom(fManager.getRoom(currentRoomX, currentRoomY));
 
-			player.setPos(fManager.getRoom(currentRoomX, currentRoomY).walls[3].door.x,
-					fManager.getRoom(currentRoomX, currentRoomY).walls[3].door.y
-							- fManager.getRoom(currentRoomX, currentRoomY).wallWidth);
+			player.setPos(player.x, fManager.getRoom(currentRoomX, currentRoomY).walls[3].door.y
+					- fManager.getRoom(currentRoomX, currentRoomY).wallWidth);
 			player.yVelocity = 0;
 
 		} else if (oManager.wDoor) {
@@ -292,7 +292,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			} else if (fManager.floor[currentRoomX][currentRoomY].lasers.get(i).state == false) {
 				fManager.floor[currentRoomX][currentRoomY].lasers.get(i).timerStop();
 				fManager.floor[currentRoomX][currentRoomY].lasers.get(i).stop();
-				
+
 			}
 		}
 

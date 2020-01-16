@@ -49,8 +49,8 @@ public class Wall extends GameObject {
 
 	void draw(Graphics g) {
 
-		g.setColor(Color.CYAN);
-		g.fillRect(jumpableArea.x, jumpableArea.y, jumpableArea.width, jumpableArea.height);
+//		g.setColor(Color.CYAN);
+//		g.fillRect(jumpableArea.x, jumpableArea.y, jumpableArea.width, jumpableArea.height);
 
 		g.setColor(Color.white);
 		g.fillRect(x, y, width, height);

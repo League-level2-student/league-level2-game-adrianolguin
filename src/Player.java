@@ -216,16 +216,16 @@ public class Player extends GameObject implements ActionListener {
 
 	void manageDir(int keyPressed, boolean change) {
 
-		if (keyPressed == KeyEvent.VK_UP) {
+		if (keyPressed == KeyEvent.VK_W) {
 			UP = change;
 		}
-		if (keyPressed == KeyEvent.VK_DOWN) {
+		if (keyPressed == KeyEvent.VK_S) {
 			DOWN = change;
 		}
-		if (keyPressed == KeyEvent.VK_LEFT) {
+		if (keyPressed == KeyEvent.VK_A) {
 			LEFT = change;
 		}
-		if (keyPressed == KeyEvent.VK_RIGHT) {
+		if (keyPressed == KeyEvent.VK_D) {
 			RIGHT = change;
 		}
 	}

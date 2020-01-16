@@ -51,8 +51,8 @@ class spikeStrip {
 	}
 	
 	void draw(Graphics g) {
-		g.setColor(Color.red);
-		g.drawRect(x, y, width, height);
+//		g.setColor(Color.red);
+//		g.drawRect(x, y, width, height);
 		for(int i = 0; i < amount; i++) {
 			pointXs[0] = (x + triangleWidth/2) + (triangleWidth * i);
 			pointYs[0] = y;
@@ -62,7 +62,7 @@ class spikeStrip {
 			
 			pointXs[2] = (x + triangleWidth) + triangleWidth * i;
 			pointYs[2] = y + triangleHeight;
-			g.setColor(Color.gray);
+			g.setColor(Color.WHITE);
 			g.fillPolygon(pointXs, pointYs, 3);
 		}
 	}

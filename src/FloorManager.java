@@ -132,7 +132,7 @@ public class FloorManager {
 			floor[2][0].lasers.get(0).shootBuffer.setDelay(500);
 			floor[2][0].lasers.get(0).addEventBox(100, 100, 100, 100, true, false);
 			floor[2][0].lasers.get(0).addEventBox(660, 150, 90, 45, false, true);
-			
+
 			floor[2][0].lasers.add(new Laser(45, 250, 25, 680, RIGHT, false));
 			floor[2][0].lasers.get(1).shootBuffer.setDelay(1250);
 			floor[2][0].lasers.get(1).addEventBox(660, 150, 90, 45, true, false);
@@ -143,26 +143,6 @@ public class FloorManager {
 			//
 
 		} else if (presetNum == 2) {
-
-			floorCols = 4;
-			floorRows = 4;
-			spawnX = 500;
-			spawnY = 500;
-			floor = new Room[floorCols][floorRows];
-
-			miniMapRWidth = miniMapWidth / floorCols;
-			miniMapRHeight = miniMapHeight / floorRows;
-
-			floor[0][0] = new Room(50, 50, sWidth - 50, sHeight - 100, false, false, false, true);
-			floor[0][1] = new Room(50, 50, sWidth - 50, sHeight - 100, false, true, true, false);
-			floor[1][1] = new Room(50, 50, sWidth - 50, sHeight - 100, true, false, true, false);
-			floor[2][1] = new Room(50, 50, sWidth - 50, sHeight - 100, true, false, false, true);
-			floor[2][1].walls[1].doorDistance = 20;
-			floor[2][1].walls[1].initializeDoor();
-
-			floor[2][2] = new Room(50, 50, sWidth - 50, sHeight - 100, false, true, false, true);
-			floor[2][3] = new Room(50, 50, sWidth - 50, sHeight - 100, false, true, true, false);
-			floor[3][3] = new Room(50, 50, sWidth - 50, sHeight - 100, true, false, false, false);
 
 		} else if (presetNum == 3) {
 			floorCols = 2;
@@ -235,19 +215,99 @@ public class FloorManager {
 
 			////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+		} else if (presetNum == 4) {
+			floorCols = 4;
+			floorRows = 4;
+			spawnX = 90;
+			spawnY = 600;
+			spawnFloorX = 1;
+			spawnFloorY = 1;
+			floor = new Room[floorCols][floorRows];
+
+			miniMapRWidth = miniMapWidth / floorCols;
+			miniMapRHeight = miniMapHeight / floorRows;
+
+			floor[0][0] = new Room(50, 50, sWidth - 50, sHeight - 100, false, false, true, false);
+			floor[1][0] = new Room(50, 50, sWidth - 50, sHeight - 100, true, false, false, true);
+			floor[1][0].walls[3].doorDistance(750);
+			floor[1][0].walls[3].doorSize(140);
+			floor[1][1] = new Room(50, 50, sWidth - 50, sHeight - 100, false, true, false, false);
+			floor[1][1].walls[1].doorDistance(750);
+			floor[1][1].walls[1].doorSize(140);
+			
+			//
+			floor[0][0].insideWalls.add(new Wall(50 + 100, 50 + 480 + 15, 50, 85, false, 0, 0));
+			floor[0][0].insideWalls.add(new Wall(50 + 300, 50 + 480 + 15, 50, 85, false, 0, 0));
+			floor[0][0].insideWalls.add(new Wall(50 + 400, 50 + 480 + 15 - 40, 100, 85 + 40, false, 0, 0));
+			floor[0][0].insideWalls.add(new Wall(50 + 676, 50 + 480 + 15 - 40, 100, 85 + 40, false, 0, 0));
+
+			floor[0][0].spikeStrips.add(new spikeStrip(50 + 400 + 100, 600 - 10, 175, 40, 6));
+			//
+			floor[1][0].insideWalls.add(new Wall(600, 50, 50, 500, false, 0, 0));
+			floor[1][0].insideWalls.add(new Wall(750, 180, 50, 450, false, 0, 0));
+			floor[1][0].insideWalls.add(new Wall(800, 400, 75, 30, false, 0, 0));
+
+			floor[1][0].lasers.add(new Laser(200, 620, 20, 560, UP, false));
+			floor[1][0].lasers.add(new Laser(325, 620, 20, 560, UP, false));
+			floor[1][0].lasers.get(1).shootBuffer.setDelay(900);
+			floor[1][0].lasers.add(new Laser(325 + 40, 620, 20, 560, UP, false));
+			floor[1][0].lasers.get(2).shootBuffer.setDelay(900);
+			floor[1][0].lasers.add(new Laser(325 + 80, 620, 20, 560, UP, false));
+			floor[1][0].lasers.get(3).shootBuffer.setDelay(900);
+			floor[1][0].lasers.add(new Laser(325 + 120, 620, 20, 560, UP, false));
+			floor[1][0].lasers.get(4).shootBuffer.setDelay(900);
+			floor[1][0].lasers.add(new Laser(570, 620, 20, 560, UP, false));
+			floor[1][0].lasers.add(new Laser(790, 250, 20, 130, RIGHT, false));
+			floor[1][0].lasers.add(new Laser(790, 290, 20, 130, RIGHT, false));
+			floor[1][0].lasers.add(new Laser(790, 330, 20, 130, RIGHT, false));
+			floor[1][0].lasers.add(new Laser(930, 480, 20, 130, LEFT, false));
+			floor[1][0].lasers.add(new Laser(930, 520, 20, 130, LEFT, false));
+			floor[1][0].lasers.add(new Laser(930, 560, 20, 130, LEFT, false));
+
+			floor[1][0].lasers.get(0).addEventBox(110, 580, 50, 50, true, false);
+			floor[1][0].lasers.get(1).addEventBox(110, 580, 50, 50, true, false);
+			floor[1][0].lasers.get(2).addEventBox(110, 580, 50, 50, true, false);
+			floor[1][0].lasers.get(3).addEventBox(110, 580, 50, 50, true, false);
+			floor[1][0].lasers.get(4).addEventBox(110, 580, 50, 50, true, false);
+			floor[1][0].lasers.get(5).addEventBox(110, 580, 50, 50, true, false);
+
+			floor[1][0].lasers.get(0).addEventBox(600, 580, 50, 50, false, false);
+			floor[1][0].lasers.get(1).addEventBox(600, 580, 50, 50, false, false);
+			floor[1][0].lasers.get(2).addEventBox(600, 580, 50, 50, false, false);
+			floor[1][0].lasers.get(3).addEventBox(600, 580, 50, 50, false, false);
+			floor[1][0].lasers.get(4).addEventBox(600, 580, 50, 50, false, false);
+			floor[1][0].lasers.get(5).addEventBox(600, 580, 50, 50, false, false);
+
+			floor[1][0].lasers.get(6).addEventBox(600, 580, 50, 50, true, false);
+			floor[1][0].lasers.get(7).addEventBox(600, 580, 50, 50, true, false);
+			floor[1][0].lasers.get(8).addEventBox(600, 580, 50, 50, true, false);
+			floor[1][0].lasers.get(9).addEventBox(600, 580, 50, 50, true, false);
+			floor[1][0].lasers.get(10).addEventBox(600, 580, 50, 50, true, false);
+			floor[1][0].lasers.get(11).addEventBox(600, 580, 50, 50, true, false);
+
+			floor[1][0].lasers.get(6).addEventBox(800, 600, 140, 30, false, false);
+			floor[1][0].lasers.get(7).addEventBox(800, 600, 140, 30, false, false);
+			floor[1][0].lasers.get(8).addEventBox(800, 600, 140, 30, false, false);
+			floor[1][0].lasers.get(9).addEventBox(800, 600, 140, 30, false, false);
+			floor[1][0].lasers.get(10).addEventBox(800, 600, 140, 30, false, false);
+			floor[1][0].lasers.get(11).addEventBox(800, 600, 140, 30, false, false);
+			//
+			floor[1][1].insideWalls.add(new Wall(800, 50 + 150, 150, 435, false, 0, 0));
+			floor[1][1].insideWalls.add(new Wall(550, 50 + 150, 100, 200, false, 0, 0));
+			floor[1][1].insideWalls.add(new Wall(550, 50, 100, 75, false, 0, 0));
+			floor[1][1].insideWalls.add(new Wall(550, 500, 100, 135, false, 0, 0));			
+			floor[1][1].insideWalls.add(new Wall(350, 125, 100, 325, false, 0, 0));
+			floor[1][1].insideWalls.add(new Wall(50, 600, 400, 30, false, 0, 0));			
+			floor[1][1].insideWalls.add(new Wall(50, 50, 150, 400, false, 0, 0));
+
+
+			//
 		}
 
 	}
 
 	Room getRoom(int x, int y) {
 		return floor[x][y];
-	}
-
-	void spikeStrip(Rectangle r, int spikeAmount) {
-		int amount = r.width / spikeAmount;
-		for (int x = 0; x < amount; x++) {
-
-		}
 	}
 
 }
