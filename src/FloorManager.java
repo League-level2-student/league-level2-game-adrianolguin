@@ -221,20 +221,27 @@ public class FloorManager {
 			spawnX = 90;
 			spawnY = 600;
 			spawnFloorX = 1;
-			spawnFloorY = 1;
+			spawnFloorY = 2;
 			floor = new Room[floorCols][floorRows];
 
 			miniMapRWidth = miniMapWidth / floorCols;
 			miniMapRHeight = miniMapHeight / floorRows;
 
 			floor[0][0] = new Room(50, 50, sWidth - 50, sHeight - 100, false, false, true, false);
+
 			floor[1][0] = new Room(50, 50, sWidth - 50, sHeight - 100, true, false, false, true);
 			floor[1][0].walls[3].doorDistance(750);
 			floor[1][0].walls[3].doorSize(140);
-			floor[1][1] = new Room(50, 50, sWidth - 50, sHeight - 100, false, true, false, false);
+
+			floor[1][1] = new Room(50, 50, sWidth - 50, sHeight - 100, false, true, false, true);
 			floor[1][1].walls[1].doorDistance(750);
 			floor[1][1].walls[1].doorSize(140);
-			
+			floor[1][1].walls[3].doorDistance(10);
+			floor[1][1].walls[3].doorSize(90);
+
+			floor[1][2] = new Room(50, 50, sWidth - 50, sHeight - 100, false, true, false, false);
+			floor[1][2].walls[1].doorSize(90);
+
 			//
 			floor[0][0].insideWalls.add(new Wall(50 + 100, 50 + 480 + 15, 50, 85, false, 0, 0));
 			floor[0][0].insideWalls.add(new Wall(50 + 300, 50 + 480 + 15, 50, 85, false, 0, 0));
@@ -295,13 +302,22 @@ public class FloorManager {
 			floor[1][1].insideWalls.add(new Wall(800, 50 + 150, 150, 435, false, 0, 0));
 			floor[1][1].insideWalls.add(new Wall(550, 50 + 150, 100, 200, false, 0, 0));
 			floor[1][1].insideWalls.add(new Wall(550, 50, 100, 75, false, 0, 0));
-			floor[1][1].insideWalls.add(new Wall(550, 500, 100, 135, false, 0, 0));			
-			floor[1][1].insideWalls.add(new Wall(350, 125, 100, 325, false, 0, 0));
-			floor[1][1].insideWalls.add(new Wall(50, 600, 400, 30, false, 0, 0));			
+			floor[1][1].insideWalls.add(new Wall(550, 500, 100, 135, false, 0, 0));
+			floor[1][1].insideWalls.add(new Wall(350, 125, 100, 280, false, 0, 0));
+			floor[1][1].insideWalls.add(new Wall(150, 600, 300, 30, false, 0, 0));
 			floor[1][1].insideWalls.add(new Wall(50, 50, 150, 400, false, 0, 0));
 
-
+			floor[1][1].spikeStrips.add(new spikeStrip(450, 600, 100, 30, 5));
+			floor[1][1].spikeStrips.add(new spikeStrip(650, 600, 150, 30, 6));
 			//
+
+			floor[1][2].insideWalls.add(new Wall(50, 200, 200, 35, false, 0, 0));
+			floor[1][2].insideWalls.add(new Wall(740, 200, 200, 35, false, 0, 0));			
+			floor[1][2].insideWalls.add(new Wall(250 + 100, 200, 200, 35, false, 0, 0));
+
+
+
+
 		}
 
 	}

@@ -1,4 +1,5 @@
 import java.awt.Dimension;
+import java.io.Console;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -18,6 +19,7 @@ public class Evolution {
 		frame.getContentPane().setPreferredSize(new Dimension(width, height));
 		frame.setSize(width, height);
 		frame.pack();
+	
 	}
 
 	public static void main(String[] args) {
