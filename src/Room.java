@@ -6,6 +6,8 @@ public class Room {
 
 	Wall[] walls;
 
+	String modeKey;
+	
 	int wallWidth = 10;
 
 	int doorSize = 40;
@@ -76,6 +78,10 @@ public class Room {
 		// containing.get(x).update();
 		// }
 
+	}
+	
+	void setModeKey(String newModeKey) {
+		modeKey = newModeKey;
 	}
 
 }

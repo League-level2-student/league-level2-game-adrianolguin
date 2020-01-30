@@ -4,6 +4,8 @@ import java.awt.Rectangle;
 
 public class FloorManager {
 
+	String modeKey;
+	
 	String UP = "up";
 	String DOWN = "down";
 	String RIGHT = "right";
@@ -220,20 +222,23 @@ public class FloorManager {
 			floorRows = 4;
 			spawnX = 90;
 			spawnY = 600;
-			spawnFloorX = 1;
-			spawnFloorY = 2;
+			spawnFloorX = 0;
+			spawnFloorY = 0;
 			floor = new Room[floorCols][floorRows];
 
 			miniMapRWidth = miniMapWidth / floorCols;
 			miniMapRHeight = miniMapHeight / floorRows;
 
 			floor[0][0] = new Room(50, 50, sWidth - 50, sHeight - 100, false, false, true, false);
-
+			floor[0][0].setModeKey("zero-zero");
 			floor[1][0] = new Room(50, 50, sWidth - 50, sHeight - 100, true, false, false, true);
+			floor[1][0].setModeKey("one-zero");
+
 			floor[1][0].walls[3].doorDistance(750);
 			floor[1][0].walls[3].doorSize(140);
 
 			floor[1][1] = new Room(50, 50, sWidth - 50, sHeight - 100, false, true, false, true);
+			floor[1][1].setModeKey("one-one");
 			floor[1][1].walls[1].doorDistance(750);
 			floor[1][1].walls[1].doorSize(140);
 			floor[1][1].walls[3].doorDistance(10);
@@ -241,6 +246,7 @@ public class FloorManager {
 
 			floor[1][2] = new Room(50, 50, sWidth - 50, sHeight - 100, false, true, false, false);
 			floor[1][2].walls[1].doorSize(90);
+			floor[1][2].setModeKey("one-two");
 
 			//
 			floor[0][0].insideWalls.add(new Wall(50 + 100, 50 + 480 + 15, 50, 85, false, 0, 0));
@@ -251,6 +257,7 @@ public class FloorManager {
 			floor[0][0].spikeStrips.add(new spikeStrip(50 + 400 + 100, 600 - 10, 175, 40, 6));
 			//
 			floor[1][0].insideWalls.add(new Wall(600, 50, 50, 500, false, 0, 0));
+			floor[1][0].insideWalls.add(new Wall(125, 575, 50, 65, false, 0, 0));
 			floor[1][0].insideWalls.add(new Wall(750, 180, 50, 450, false, 0, 0));
 			floor[1][0].insideWalls.add(new Wall(800, 400, 75, 30, false, 0, 0));
 
