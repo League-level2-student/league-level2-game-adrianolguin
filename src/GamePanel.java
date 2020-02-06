@@ -21,7 +21,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public static BufferedImage brokenHeartImg;
 	public static BufferedImage damagedHeartImg;
 
-	String tutorial1 = "Games still buggy. Because it's unfinished, so you'll be stuck moving forward\nJust hold the direction your stuck moving do become unstuck\nYou can also do some cool jumps on walls. Those are also buggy";
+	String tutorial1 = "Game is still buggy, so you'll be stuck moving forward\nJust hold the direction your stuck moving to become unstuck\nYou can also do some cool jumps on walls. Those are also buggy";
 	String tutorial2 = "Be careful of spikes. They're sharp";
 	boolean tutorialComplete;
 	boolean refreshed = false;
@@ -92,6 +92,32 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		checkCollisions();
 		repaint();
 
+		if (player.health < 1) {
+			player = new Player(0, 0);
+			tManager = new TextManager("null");
+
+			try {
+				heartImg = ImageIO.read(this.getClass().getResourceAsStream("Heart.png"));
+				damagedHeartImg = ImageIO.read(this.getClass().getResourceAsStream("DamagedHeart.png"));
+				brokenHeartImg = ImageIO.read(this.getClass().getResourceAsStream("BrokenHeart.png"));
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+			boostBuffer = new Timer(1000 / 60, this);
+			timer = new Timer(1000 / 60, this);
+
+			oManager = new ObjectManager(player);
+			fManager = new FloorManager(4, player);
+			currentRoomX = fManager.spawnFloorX;
+			currentRoomY = fManager.spawnFloorY;
+			oManager.changeCurrentRoom(fManager.floor[currentRoomX][currentRoomY]);
+			player.setPos(fManager.spawnX, fManager.spawnY);
+
+			JOptionPane.showMessageDialog(null, "Why'd you die?");
+		}
+
 		if (tutorialComplete) {
 			fManager = new FloorManager(1, player);
 			currentRoomX = fManager.spawnFloorX;
@@ -151,23 +177,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 		int keyPressed = e.getKeyCode();
 
-		if (keyPressed == KeyEvent.VK_NUMPAD5) {
-
-		}
-
 		player.manageDir(keyPressed, true);
-
-		if (keyPressed == KeyEvent.VK_NUMPAD0) {
-			tutorialComplete = true;
-		}
-
-		if (keyPressed == KeyEvent.VK_NUMPAD9) {
-			CurrentGameState = LevelBuilder;
-		}
-
-		if (keyPressed == KeyEvent.VK_R) {
-			player.setPos(fManager.spawnX, fManager.spawnY);
-		}
 
 		if (keyPressed == KeyEvent.VK_SPACE) {
 			if (player.grinding) {
@@ -189,23 +199,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			doorAccept = true;
 		} else {
 			doorAccept = false;
-		}
-
-		if (keyPressed == KeyEvent.VK_M) {
-			if (showMiniMap == false) {
-				showMiniMap = true;
-			} else {
-				showMiniMap = false;
-			}
-		}
-
-		if (keyPressed == KeyEvent.VK_P) {
-			System.out.println(currentRoomX + ", " + currentRoomY);
-		}
-
-		if (keyPressed == KeyEvent.VK_0) {
-			player.health++;
-			oManager.healthBar.currentHealth = player.health;
 		}
 
 	}
@@ -250,9 +243,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			} else if (fManager.floor[currentRoomX][currentRoomY].modeKey.equals("one-one")) {
 				JOptionPane.showMessageDialog(null, tutorial2);
 
-			} else if(fManager.floor[currentRoomX][currentRoomY].modeKey.equals("one-two")) {
-				
-			JOptionPane.showMessageDialog(null, "You win Unfinished Game. It was very short huh. We should yell at the devs.");
+			} else if (fManager.floor[currentRoomX][currentRoomY].modeKey.equals("one-two")) {
+
+				JOptionPane.showMessageDialog(null,
+						"You win Unfinished Game. It was very short huh. We should yell at the devs.");
 			}
 
 		} else if (oManager.nDoor) {

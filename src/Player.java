@@ -42,7 +42,7 @@ public class Player extends GameObject implements ActionListener {
 
 		button = new JButton();
 		
-		health = 6;
+		health = 4;
 
 		speed = 5;
 
